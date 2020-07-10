@@ -1,4 +1,4 @@
-# Curso Maestro de Web Scraping en Python: Extracción de Datos de la Web
+# Curso Maestro de Web Scraping en Python: Extracción de Datos de la Web
 
 ![Photo](https://img-a.udemycdn.com/course/240x135/2861742_c063.jpg)
 
@@ -7,7 +7,7 @@ En este repositorio van a poder encontrar el código actualizado de las clases d
 
 Adicional a esto, también se iran agregando los ejemplos adicionales propuestos por otros estudiantes en las preguntas del curso.    
    
-## Contenido   
+## Contenido   
 - **NIVEL 1**: REQUESTS Y SCRAPY   
    - Wikipedia (Requests): Extracción de idiomas   
    - Stackoverflow (Requests): Extracción de preguntas y respuestas   
