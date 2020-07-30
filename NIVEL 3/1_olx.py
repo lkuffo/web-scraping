@@ -12,12 +12,13 @@ from selenium import webdriver # pip install selenium
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome('./chromedriver.exe') # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
+driver = webdriver.Chrome('./chromedriver') # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
 
 # Voy a la pagina que requiero
 driver.get('https://www.olx.com.ec/autos_c378')
+driver.refresh() # Solucion de un bug extraño en donde los anuncios solo cargan al hacerle refresh o al darle click a algun elemento
 
-sleep(3) # Esperamos que cargue el boton
+sleep(5) # Esperamos que cargue el boton
 # Busco el boton para cargar mas informacion
 boton = driver.find_element_by_xpath('//button[@data-aut-id="btnLoadMore"]')
 for i in range(3): # Voy a darle click en cargar mas 3 veces
