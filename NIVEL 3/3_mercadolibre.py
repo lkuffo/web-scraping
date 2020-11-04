@@ -7,7 +7,7 @@ OBJETIVO:
     - Aprender a manejar el "retroceso" del navegador
     - Aprender a definir user_agents en Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ABRIL 2020
+ULTIMA VEZ EDITADO: 03 NOVIEMBRE 2020
 """
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -28,6 +28,14 @@ driver.get('https://listado.mercadolibre.com.ec/repuestos-autos-camionetas-bujia
 # VECES VOY A PAGINAR HASTA UN MAXIMO DE 10 
 PAGINACION_MAX = 10
 PAGINACION_ACTUAL = 1
+
+# Debemos darle click al boton de disclaimer para que no interrumpa nuestras acciones
+try: # Encerramos todo en un try catch para que si no aparece el discilamer, no se caiga el codigo
+  disclaimer = driver.find_element(By.XPATH, '//button[@id="cookieDisclaimerButton"]')
+  disclaimer.click() # lo obtenemos y le damos click
+except Exception as e:
+  print (e) 
+  None
 
 # Mientras la pagina en la que me encuentre, sea menor que la maxima pagina que voy a sacar... sigo ejecutando...
 while PAGINACION_MAX > PAGINACION_ACTUAL:

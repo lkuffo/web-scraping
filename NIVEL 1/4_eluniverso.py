@@ -25,7 +25,8 @@ class Noticia(Item):
 class ElUniversoSpider(Spider):
     name = "MiSegundoSpider"
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36'
+        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',
+        # 'FEED_EXPORT_FIELDS': ['id', 'descripcion', 'titular'] # Como ordenar las columnas en el CSV?
     }
     start_urls = ['https://www.eluniverso.com/deportes']
 

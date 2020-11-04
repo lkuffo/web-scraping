@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar LoopingCalls en Scrapy.
     - Utilizar Scrapy de una manera simplificada.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 26 ABRIL 2020
+ULTIMA VEZ EDITADO: 2 SEPTIEMBRE 2020
 """
 
 from twisted.internet import reactor # viene instalado con scrapy
@@ -17,7 +17,7 @@ from scrapy.spiders import Spider
 class ExtractorClima(Spider):
     name = "MiCrawlerDeClima"
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246',
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36',
         'CLOSESPIDER_PAGECOUNT': 20,
         'LOG_ENABLED': True # Elimina los miles de logs que salen al ejecutar Scrapy en terminal
     }
@@ -32,10 +32,9 @@ class ExtractorClima(Spider):
     ]
 
     def parse(self, response):
-        print(response)
         ciudad = response.xpath('//h1/text()').get()
-        current = response.xpath('//a[contains(@class, "card current")]//div[@class="temp"]/span[1]/text()').get()
-        real_feel = response.xpath('//a[contains(@class, "card current")]//div[@class="real-feel"]/text()').get()
+        current = response.xpath('//div[contains(@class, "cur-con-weather-card__panel")]//div[@class="temp"]/text()').get()
+        real_feel = response.xpath('//div[contains(@class, "cur-con-weather-card__panel")]//div[@class="real-feel"]/text()').get()
 
         # Limpieza de datos
         ciudad = ciudad.replace('\n', '').replace('\r', '').strip()
