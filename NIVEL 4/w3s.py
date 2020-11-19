@@ -3,11 +3,11 @@ OBJETIVO:
     - Extraer el titulo de dos paginas. De las cuales una esta dentro de la otra a traves de un iframe.
     - Aprender a extraer datos de iframes desde Scrapy
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 28 ABRIL 2020
+ULTIMA VEZ EDITADO: 9 NOVIEMBRE 2020
 """
 from scrapy.item import Field
 from scrapy.item import Item
-from scrapy.spiders import CrawlSpider
+from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from scrapy.loader import ItemLoader
 from scrapy import Request
@@ -17,7 +17,7 @@ class Dummy(Item):
   titulo_iframe = Field() # Titulo de pagina del iframe
 
 
-class W3SCrawler(CrawlSpider):
+class W3SCrawler(Spider):
   name = 'w3s'
   custom_settings = {
     'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',

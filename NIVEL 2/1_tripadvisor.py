@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales utilizando reglas
     - Aprender a utilizar MapCompose para realizar limpieza de datos
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 ABRIL 2020
+ULTIMA VEZ EDITADO: 18 NOVIEMBRE 2020
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -17,7 +17,7 @@ from scrapy.loader import ItemLoader
 
 class Hotel(Item):
     nombre = Field()
-    precio = Field()
+    score = Field() # El precio ahora carga dinamicamente. Por eso ahora obtenemos el score del hotel
     descripcion = Field()
     amenities = Field()
 
@@ -55,14 +55,14 @@ class TripAdvisor(CrawlSpider):
 
         item = ItemLoader(Hotel(), sel)
         item.add_xpath('nombre', '//h1[@id="HEADING"]/text()')
-        item.add_xpath('precio', './/div[@class="hotels-hotel-offers-DominantOffer__price--D-ycN"]/text()',
+        item.add_xpath('score', './/div[@class="kVNDLtqL"]/span/text()',
                         MapCompose(self.quitarDolar))
         # Utilizo Map Compose con funciones anonimas
         # PARA INVESTIGAR: Que son las funciones anonimas en Python?
-        item.add_xpath('descripcion', '//div[contains(@class, "hotel-review-about-csr-Description__description")]/div/text()',
+        item.add_xpath('descripcion', '//div[@class="_2f_ruteS _1bona3Pu _2-hMril5"]/div/text()',
                        MapCompose(lambda i: i.replace('\n', '').replace('\r', '')))
         item.add_xpath('amenities',
-                       '//div[contains(@class, "hotels-hr-about-amenities-Amenity__amenity--3fbBj")]/text()')
+                       '//div[contains(@data-test-target, "amenity_text")]/text()')
         yield item.load_item()
 
 # EJECUCION
