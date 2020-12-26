@@ -16,7 +16,7 @@ headers = {
 # Documentacion del API: https://api.github.com/
 endpoint = 'https://api.github.com/user/repos?page=3'
 
-password = open('./password.txt').readline().strip()
+password = open('./oauthtoken.txt').readline().strip()
 response = requests.get(
   endpoint, 
   headers=headers, 
