@@ -69,9 +69,9 @@ class ElUniversoSpider(Spider):
 # scrapy runspider 4_eluniverso.py -o resultados.csv -t csv
 
 # CORRIENDO SCRAPY SIN LA TERMINAL
-process = CrawlerProcess({
-    'FEED_FORMAT': 'json',
-    'FEED_URI': 'datos_de_salida.json'
-})
-process.crawl(ElUniversoSpider)
-process.start()
+# process = CrawlerProcess({
+#     'FEED_FORMAT': 'json',
+#     'FEED_URI': 'datos_de_salida.json'
+# })
+# process.crawl(ElUniversoSpider)
+# process.start()
