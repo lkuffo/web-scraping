@@ -19,6 +19,7 @@ url = 'https://www.wikipedia.org/'
 
 # REQUERIMIENTO AL SERVIDOR
 respuesta = requests.get(url, headers=headers)
+respuesta.encoding = 'UTF-8' # Codificar correctamente caracteres extranos
 
 # PARSEO DEL ARBOL HTML QUE RECIBO COMO RESPUESTA CON LXML
 parser = html.fromstring(respuesta.text)

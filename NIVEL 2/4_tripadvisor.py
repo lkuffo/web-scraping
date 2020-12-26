@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a reducir el espectro de busqueda para filtrar URLs en las reglas
     - Evitar obtener URLs repetidas
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 15 ABRIL 2020
+ULTIMA VEZ EDITADO: 7 DICIEMBRE 2020
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -63,10 +63,10 @@ class TripAdvisor(CrawlSpider):
     for opinion in opiniones:
       item = ItemLoader(Opinion(), opinion)
       item.add_value('autor', autor)
-      item.add_xpath('titulo', './/div[@class="social-section-review-ReviewSection__title--dTu08 social-section-review-ReviewSection__linked--kI3zg"]/text()')
-      item.add_xpath('hotel', './/div[@class="social-poi-POIObject__poi_name--1QohT ui_link"]/text()')
+      item.add_xpath('titulo', './/div[@class="_3IEJ3tAK _2K4zZcBv"]/text()')
+      item.add_xpath('hotel', './/div[contains(@class, "ui_card section")]//div[@title]/text()') # div[@title] => divs que contengan el atributo title
       item.add_xpath('contenido', './/q/text()', MapCompose(lambda i: i.replace('\n', '').replace('\r', '')))
-      item.add_xpath('calificacion', './/div[contains(@class, "social-section-review")]//span[contains(@class, "ui_bubble_rating")]/@class', MapCompose(lambda i: i.split('_')[-1]))
+      item.add_xpath('calificacion', './/div[contains(@class, "ui_card section")]//a/div/span[contains(@class, "ui_bubble_rating")]/@class', MapCompose(lambda i: i.split('_')[-1]))
       yield item.load_item()
       
 # EJECUCION
