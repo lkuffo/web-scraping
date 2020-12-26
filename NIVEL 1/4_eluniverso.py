@@ -13,6 +13,7 @@ from scrapy.selector import Selector
 from scrapy.loader.processors import MapCompose
 from scrapy.loader import ItemLoader
 from bs4 import BeautifulSoup
+from scrapy.crawler import CrawlerProcess
 
 # ABSTRACCION DE DATOS A EXTRAER - DETERMINA LOS DATOS QUE TENGO QUE LLENAR Y QUE ESTARAN EN EL ARCHIVO GENERADO
 class Noticia(Item):
@@ -26,7 +27,8 @@ class ElUniversoSpider(Spider):
     name = "MiSegundoSpider"
     custom_settings = {
         'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',
-        # 'FEED_EXPORT_FIELDS': ['id', 'descripcion', 'titular'] # Como ordenar las columnas en el CSV?
+        # 'FEED_EXPORT_FIELDS': ['id', 'descripcion', 'titular'], # Como ordenar las columnas en el CSV?
+        # 'CONCURRENT_REQUESTS': 1 # numero de requerimientos concurrentes 
     }
     start_urls = ['https://www.eluniverso.com/deportes']
 
@@ -65,3 +67,11 @@ class ElUniversoSpider(Spider):
 
 # EJECUCION
 # scrapy runspider 4_eluniverso.py -o resultados.csv -t csv
+
+# CORRIENDO SCRAPY SIN LA TERMINAL
+process = CrawlerProcess({
+    'FEED_FORMAT': 'json',
+    'FEED_URI': 'datos_de_salida.json'
+})
+process.crawl(ElUniversoSpider)
+process.start()
