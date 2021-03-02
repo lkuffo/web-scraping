@@ -47,3 +47,6 @@ class CruzVerdeSpider(CrawlSpider):
             item.add_xpath('Precio', './/span[contains(@class, "value ")]/text()')
  
             yield item.load_item()
+
+# EJECUCION	
+# scrapy runspider 2_mercadolibre.py -o mercado_libre.json -t json 
