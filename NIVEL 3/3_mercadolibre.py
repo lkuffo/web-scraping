@@ -7,7 +7,7 @@ OBJETIVO:
     - Aprender a manejar el "retroceso" del navegador
     - Aprender a definir user_agents en Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 03 NOVIEMBRE 2020
+ULTIMA VEZ EDITADO: 2 mrzo 2021
 """
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -40,7 +40,7 @@ except Exception as e:
 # Mientras la pagina en la que me encuentre, sea menor que la maxima pagina que voy a sacar... sigo ejecutando...
 while PAGINACION_MAX > PAGINACION_ACTUAL:
 
-  links_productos = driver.find_elements(By.XPATH, '//a[@class="item__info-title"]')
+  links_productos = driver.find_elements(By.XPATH, '//a[@class="ui-search-item__group__element ui-search-link"]')
   links_de_la_pagina = []
   for a_link in links_productos:
     links_de_la_pagina.append(a_link.get_attribute("href"))
@@ -56,10 +56,10 @@ while PAGINACION_MAX > PAGINACION_ACTUAL:
 
       # Rara vez da error si no utilizamos una espera por eventos:
       # precio_element = WebDriverWait(driver, 10).until(
-      #   EC.presence_of_element_located((By.XPATH, '//span[includes(@class,"price-tag")]'))
+      #   EC.presence_of_element_located((By.XPATH, '//span[contains(@class,"price-tag")]'))
       # )
       titulo = driver.find_element(By.XPATH, '//h1').text
-      precio = driver.find_element(By.XPATH, '//span[includes(@class,"price-tag")]').text
+      precio = driver.find_element(By.XPATH, '//span[contains(@class,"price-tag ui-pdp-price__part")]').text
       print (titulo)
       print (precio.replace('\n', '').replace('\t', ''))
 

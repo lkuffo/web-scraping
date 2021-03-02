@@ -3,7 +3,7 @@ OBJETIVO:
     - Extraer los titulares y el resumen de las noticias en la pagina principal de deportes de EL UNIVERSO.
     - Contrastar el uso de Beautiful Soup y Scrapy para parsear el arbol HTML.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 12 ABRIL 2020
+ULTIMA VEZ EDITADO: 2 marzo 2021
 """
 
 from scrapy.item import Field
@@ -29,12 +29,13 @@ class ElUniversoSpider(Spider):
         'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',
         # 'FEED_EXPORT_FIELDS': ['id', 'descripcion', 'titular'], # Como ordenar las columnas en el CSV?
         # 'CONCURRENT_REQUESTS': 1 # numero de requerimientos concurrentes 
+        #'FEED_EXPORT_ENCODING': 'utf-8'
     }
     start_urls = ['https://www.eluniverso.com/deportes']
 
     def parse(self, response):
         sel = Selector(response)
-        noticias = sel.xpath('//div[@class="view-content"]/div[@class="posts"]')
+        noticias = sel.xpath('//div[contains(@class, "story")]')
         for i, elem in enumerate(noticias): # PARA INVESTIGAR: Para que sirve enumerate?
             item = ItemLoader(Noticia(), elem) # Cargo mi item
 
