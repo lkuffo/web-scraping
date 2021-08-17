@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales utilizando reglas
     - Aprender a utilizar MapCompose para realizar limpieza de datos
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 18 NOVIEMBRE 2020
+ULTIMA VEZ EDITADO: 21 abril 2021
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -59,11 +59,11 @@ class TripAdvisor(CrawlSpider):
                         MapCompose(self.quitarDolar))
         # Utilizo Map Compose con funciones anonimas
         # PARA INVESTIGAR: Que son las funciones anonimas en Python?
-        item.add_xpath('descripcion', '//div[@class="_2f_ruteS _1bona3Pu _2-hMril5"]/div/text()',
+        item.add_xpath('descripcion', '//div[@class="ui_column  "]//div[@class="cPQsENeY"]//text()', # //text() nos permite obtener el texto de todos los hijos
                        MapCompose(lambda i: i.replace('\n', '').replace('\r', '')))
         item.add_xpath('amenities',
                        '//div[contains(@data-test-target, "amenity_text")]/text()')
         yield item.load_item()
 
 # EJECUCION
-# scrapy runspider 1_tripadvisor.py -o tripadvisor.csv -t csv
+# scrapy runspider 1_tripadvisor.py -o tripadvisor.csv

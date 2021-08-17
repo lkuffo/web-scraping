@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a cargar informacion haciendo scrolling.
     - Aprender a manejar varios tabs abiertos al mismo tiempo en Selenium.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 17 ABRIL 2020
+ULTIMA VEZ EDITADO: 28 ABRIL 2021
 """
 import random
 from time import sleep
@@ -26,11 +26,11 @@ def getScrollingScript(iteration):
     # Script de scrolling es un script de javascript. Le hago scroll a un contenedor que contenta ciertas clases
     # Estas clases dependen de mi extraccion. Existen otras maneras de hacer scrolling que veremos en el NIVEL EXTRA.
     scrollingScript = """ 
-      document.getElementsByClassName('section-layout section-scrollbox scrollable-y scrollable-show')[0].scroll(0, 20000)
+      document.getElementsByClassName('section-layout section-scrollbox mapsConsumerUiCommonScrollable__scrollable-y mapsConsumerUiCommonScrollable__scrollable-show')[0].scroll(0, 20000)
     """
     return scrollingScript.replace('20000', str(20000 * (iteration + 1)))
 
-driver = webdriver.Chrome('./chromedriver.exe', chrome_options=opts)
+driver = webdriver.Chrome('./chromedriver', chrome_options=opts)
 driver.get('https://www.google.com/maps/place/Restaurante+Amazonico/@40.423706,-3.6872655,17z/data=!4m7!3m6!1s0xd422899dc90366b:0xce28a1dc0f39911d!8m2!3d40.423706!4d-3.6850768!9m1!1b1')
 
 # A veces google places necesita una espera adicional para encontrarse verdaderamente cargado
@@ -40,13 +40,13 @@ sleep(random.uniform(4.0, 5.0))
 SCROLLS = 0
 while (SCROLLS != 3): # Decido que voy a hacer 3 scrollings
   driver.execute_script(getScrollingScript(SCROLLS)) # Ejecuto el script para hacer scrolling del contenedor
-  sleep(random.uniform(4, 5)) # Entre cada scrolling espero un tiempo
+  sleep(random.uniform(1, 2)) # Entre cada scrolling espero un tiempo
   SCROLLS += 1
 
 
 # Una vez que ha terminado el scrollings...
 # Obtengo la Lista de reviews del restaurante
-restaurantsReviews = driver.find_elements(By.XPATH, '//div[contains(@class, "section-review ripple-container")]')
+restaurantsReviews = driver.find_elements(By.XPATH, '//div[contains(@class, "section-review mapsConsumerUiCommonRipple__ripple-container")]')
 
 # Por cada review...
 for review in restaurantsReviews:
@@ -62,14 +62,15 @@ for review in restaurantsReviews:
     driver.switch_to.window(driver.window_handles[1])
 
     # Damos click en el tab de opiniones del usuario, no sin antes esperar que este disponible
-    opiniones_tab = WebDriverWait(driver, 10).until(
-      EC.presence_of_element_located((By.XPATH, '//button[@class="section-tab-bar-tab ripple-container section-tab-bar-tab-unselected"]'))
-    )
-    opiniones_tab.click()
+    # ACTUALIZACION> YA NO ES NECESARIO PROQUE POR DEFECTO YA ESTAREMOS AQUI
+    # opiniones_tab = WebDriverWait(driver, 10).until(
+    #   EC.presence_of_element_located((By.XPATH, '//button[@class="section-tab-bar-tab ripple-container section-tab-bar-tab-unselected"]'))
+    # )
+    # opiniones_tab.click()
 
     # Logica de Scrolling de las opiniones del usuario
     userReviews = WebDriverWait(driver, 10).until(
-      EC.presence_of_element_located((By.XPATH, '//div[contains(@class,"section-review ripple-container")]'))
+      EC.presence_of_element_located((By.XPATH, '//div[contains(@class,"section-review mapsConsumerUiCommonRipple__ripple-container")]'))
     )
     USER_SCROLLS = 0
     # Similar a la logica utilizada para hacer scrolling de las opiniones de un restaurante
@@ -79,7 +80,7 @@ for review in restaurantsReviews:
       USER_SCROLLS += 1
     
     # Obtenemos todos los reviews visibles del usuario
-    userReviews = driver.find_elements(By.XPATH,'//div[contains(@class,"section-review ripple-container")]')
+    userReviews = driver.find_elements(By.XPATH,'//div[contains(@class,"section-review mapsConsumerUiCommonRipple__ripple-container")]')
 
     # Por cada review que ha hecho el usuario...
     for userReview in userReviews:

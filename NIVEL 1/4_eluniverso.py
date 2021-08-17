@@ -3,7 +3,7 @@ OBJETIVO:
     - Extraer los titulares y el resumen de las noticias en la pagina principal de deportes de EL UNIVERSO.
     - Contrastar el uso de Beautiful Soup y Scrapy para parsear el arbol HTML.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 2 marzo 2021
+ULTIMA VEZ EDITADO: 21 abril 2021
 """
 
 from scrapy.item import Field
@@ -35,7 +35,7 @@ class ElUniversoSpider(Spider):
 
     def parse(self, response):
         sel = Selector(response)
-        noticias = sel.xpath('//div[contains(@class, "story")]')
+        noticias = sel.xpath('//div[contains(@class, "content-feed")]/ul/li')
         for i, elem in enumerate(noticias): # PARA INVESTIGAR: Para que sirve enumerate?
             item = ItemLoader(Noticia(), elem) # Cargo mi item
 
@@ -49,10 +49,10 @@ class ElUniversoSpider(Spider):
         # METODO #2: UTILIZANDO BEAUTIFUL SOUP => En este caso aumenta un poco la complejidad
 
         # soup = BeautifulSoup(response.body)
-        # contenedor_noticias = soup.find_all(class_='view-content')
+        # contenedor_noticias=soup.find_all(class_="feed | divide-y relative")
         # id = 0
         # for contenedor in contenedor_noticias:
-        #   noticias = contenedor.find_all(class_='posts', recursive = False)
+        #   noticias = contenedor.find_all(class_='relative', recursive = False)
         #   for noticia in noticias:
         #     item = ItemLoader(Noticia(), response.body)
         #     titular = noticia.find('h2').text.replace('\n', '').replace('\r', '')
@@ -67,7 +67,7 @@ class ElUniversoSpider(Spider):
         #     yield item.load_item()
 
 # EJECUCION
-# scrapy runspider 4_eluniverso.py -o resultados.csv -t csv
+# scrapy runspider 4_eluniverso.py -o resultados.csv
 
 # CORRIENDO SCRAPY SIN LA TERMINAL
 # process = CrawlerProcess({
