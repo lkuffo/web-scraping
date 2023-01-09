@@ -1,6 +1,6 @@
 """
 OBJETIVO: 
-    - Aprender a Rotar USER AGENTS
+    - Aprender a utilizar el metodo para parsear las URL semilla en ves de aplicar reglas directamente
 CREADO POR: LEONARDO KUFFO
 ULTIMA VEZ EDITADO: 9 ENERO 2023
 """
@@ -11,47 +11,22 @@ from scrapy.selector import Selector
 from scrapy.loader.processors import MapCompose
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
-from scrapy.crawler import CrawlerProcess
+
 
 class Hotel(Item):
     nombre = Field()
-    score = Field()
+    score = Field() # El precio ahora carga dinamicamente. Por eso ahora obtenemos el score del hotel
     descripcion = Field()
     amenities = Field()
 
+# CLASE CORE - Al querer hacer extraccion de multiples paginas, heredamos de CrawlSpider
 class TripAdvisor(CrawlSpider):
     name = 'hotelestripadvisor'
     custom_settings = {
-        "DOWNLOADER_MIDDLEWARES": { # pip install Scrapy-UserAgents
-            'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-            'scrapy_useragents.downloadermiddlewares.useragents.UserAgentsMiddleware': 500,
-        },
-        "USER_AGENTS": [
-            ('Mozilla/5.0 (X11; Linux x86_64) '
-             'AppleWebKit/537.36 (KHTML, like Gecko) '
-             'Chrome/57.0.2987.110 '
-             'Safari/537.36'),  # chrome
-            ('Mozilla/5.0 (X11; Linux x86_64) '
-             'AppleWebKit/537.36 (KHTML, like Gecko) '
-             'Chrome/61.0.3163.79 '
-             'Safari/537.36'),  # chrome
-            ('Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) '
-             'Gecko/20100101 '
-             'Firefox/55.0'),  # firefox
-            ('Mozilla/5.0 (X11; Linux x86_64) '
-             'AppleWebKit/537.36 (KHTML, like Gecko) '
-             'Chrome/61.0.3163.91 '
-             'Safari/537.36'),  # chrome
-            ('Mozilla/5.0 (X11; Linux x86_64) '
-             'AppleWebKit/537.36 (KHTML, like Gecko) '
-             'Chrome/62.0.3202.89 '
-             'Safari/537.36'),  # chrome
-            ('Mozilla/5.0 (X11; Linux x86_64) '
-             'AppleWebKit/537.36 (KHTML, like Gecko) '
-             'Chrome/63.0.3239.108 '
-             'Safari/537.36'),  # chrome
-            # Sigues anadiendo cuantos user agents quieras rotar...
-        ]    }
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+        # 'FEED_EXPORT_FIELDS': ['id', 'descripcion', 'titular'], # Como ordenar las columnas en el CSV?
+        # 'CONCURRENT_REQUESTS': 1 # numero de requerimientos concurrentes
+    }
 
     # Reduce el espectro de busqueda de URLs. No nos podemos salir de los dominios de esta lista
     allowed_domains = ['tripadvisor.com']
@@ -60,6 +35,8 @@ class TripAdvisor(CrawlSpider):
     start_urls = ['https://www.tripadvisor.com/Hotels-g303845-Guayaquil_Guayas_Province-Hotels.html']
 
     # Tiempo de espera entre cada requerimiento. Nos ayuda a proteger nuestra IP.
+    # No va a ser dos, va a ser 0.5 * download_delay hasta 1.5 * download delay
+    # es decir, va a ser entre 1 y 3 segundos de una manera randomica. Ya es un comportamiento por defecto
     download_delay = 2
 
     # Tupla de reglas para direccionar el movimiento de nuestro Crawler a traves de las paginas
@@ -73,6 +50,12 @@ class TripAdvisor(CrawlSpider):
     # Funcion a utilizar con MapCompose para realizar limpieza de datos
     def quitarDolar(self, texto):
         return texto.replace("$", "")
+
+    # EL RESPONSE ES EL DE LA URL SEMILLA
+    def parse_start_url(self, response): 
+        sel = Selector(response)
+        hoteles = sel.xpath('.//div[@data-ttpn="Hotels_MainList"]')
+        print("Numero de Resultados", len(hoteles))
 
     # Callback de la regla
     def parse_hotel(self, response):
@@ -92,10 +75,3 @@ class TripAdvisor(CrawlSpider):
 
 # EJECUCION
 # scrapy runspider 1_tripadvisor.py -o tripadvisor.csv -t csv
-# CORRIENDO SCRAPY SIN LA TERMINAL
-process = CrawlerProcess({
-    'FEED_FORMAT': 'json',
-    'FEED_URI': 'datos_de_salida.json'
-})
-process.crawl(TripAdvisor)
-process.start()
