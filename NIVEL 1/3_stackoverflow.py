@@ -2,7 +2,7 @@
 OBJETIVO: 
     - Extraer las preguntas de la pagina principal de Stackoverflow con Scrapy
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 12 ABRIL 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 
 # VER RECURSOS DE LA CLASE PARA INSTALAR SCRAPY
@@ -40,14 +40,14 @@ class StackOverflowSpider(Spider):
         titulo_de_pagina = sel.xpath('//h1/text()').get()
         print (titulo_de_pagina)
         # Selector de varias preguntas
-        preguntas = sel.xpath('//div[@id="questions"]//div[@class="question-summary"]') 
+        preguntas = sel.xpath('//div[@id="questions"]//div[contains(@class,"s-post-summary ")]') 
         i = 0
         for pregunta in preguntas:
             item = ItemLoader(Pregunta(), pregunta) # Instancio mi ITEM con el selector en donde estan los datos para llenarlo
 
             # Lleno las propiedades de mi ITEM a traves de expresiones XPATH a buscar dentro del selector "pregunta"
             item.add_xpath('pregunta', './/h3/a/text()') 
-            item.add_xpath('descripcion', './/div[@class="excerpt"]/text()')
+            # item.add_xpath('descripcion', './/div[@class="s-post-summary--content-excerpt"]/text()')
             item.add_value('id', i)
             i += 1
             yield item.load_item() # Hago Yield de la informacion para que se escriban los datos en el archivo

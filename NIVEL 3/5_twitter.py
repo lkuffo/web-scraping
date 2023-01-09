@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 """
+===========================================
+============= DESACTUALIZADO ==============
+=== LA PAGINA HA CAMBIADO POR COMPLETO ====
+===========================================
 OBJETIVO: 
     - Extraer tweets de la pagina principal de twitter.
     - Aprender a llenar formularios desde Selenium.
     - Aprender a realizar extracciones que requieren autenticacion.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 17 ABRIL 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -14,9 +18,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
 
-driver = webdriver.Chrome('./chromedriver.exe', options=opts)
+driver = webdriver.Chrome('./chromedriver', options=opts)
 driver.get('https://twitter.com/login')
 
 user = "leonardokuffo"

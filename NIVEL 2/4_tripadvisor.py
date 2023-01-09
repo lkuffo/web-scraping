@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a reducir el espectro de busqueda para filtrar URLs en las reglas
     - Evitar obtener URLs repetidas
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 7 DICIEMBRE 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -25,7 +25,7 @@ class Opinion(Item):
 class TripAdvisor(CrawlSpider):
   name = 'hotelestripadvisor'
   custom_settings = {
-    'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',
+    'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     'CLOSESPIDER_PAGECOUNT': 100
   }
 
@@ -42,7 +42,7 @@ class TripAdvisor(CrawlSpider):
     Rule( 
       LinkExtractor( # DETALLE DE HOTELES (VERTICALIDAD DE PRIMER NIVEL)
         allow=r'/Hotel_Review-', 
-        restrict_xpaths=['//div[@id="taplc_hsx_hotel_list_lite_dusty_hotels_combined_sponsored_0"]'] # Evita obtener URLs repetidas reduciendo el espectro de busqueda de las URLs a solamente un contenedor especifico dentro de un XPATH
+        restrict_xpaths=['//div[@class="prw_rup prw_meta_hsx_listing_name listing-title"]'] # Evita obtener URLs repetidas reduciendo el espectro de busqueda de las URLs a solamente un contenedor especifico dentro de un XPATH
       ), follow=True), # No tiene callback porque aun no voy a extraer datos de aqui. Solamente voy a seguir otras URLs.
     Rule( 
       LinkExtractor( # HORIZONTALIDAD DE OPINIONES DE UN HOTEL (HORIZONTALIDAD DE SEGUNDO NIVEL)
@@ -63,7 +63,7 @@ class TripAdvisor(CrawlSpider):
     for opinion in opiniones:
       item = ItemLoader(Opinion(), opinion)
       item.add_value('autor', autor)
-      item.add_xpath('titulo', './/div[@class="_3IEJ3tAK _2K4zZcBv"]/text()')
+      item.add_xpath('titulo', './/div[@class="AzIrY b _a VrCoN"]/text()')
       item.add_xpath('hotel', './/div[contains(@class, "ui_card section")]//div[@title]/text()') # div[@title] => divs que contengan el atributo title
       item.add_xpath('contenido', './/q/text()', MapCompose(lambda i: i.replace('\n', '').replace('\r', '')))
       item.add_xpath('calificacion', './/div[contains(@class, "ui_card section")]//a/div/span[contains(@class, "ui_bubble_rating")]/@class', MapCompose(lambda i: i.split('_')[-1]))

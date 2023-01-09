@@ -21,8 +21,8 @@ for descarga in descargas:
 i = 0
 for url in urls: # Por cada url de los archivos que quiero descargar
     r = requests.get(url, allow_redirects=True)
-    file_name = './archivos/excel-file-' + str(i) + '.xls'
-    output = open(file_name, 'wb')
+    nombre_archivo = './archivos' + url.split('/')[-1]
+    output = open(nombre_archivo, 'wb')
     output.write(r.content) # Escribir el archivo en mi PC
     output.close()
     i += 1

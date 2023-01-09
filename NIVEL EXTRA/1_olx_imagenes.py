@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a descargar imagenes de la web a nuestra pc.
     - Aprender una segunda manera para hacer scrolling de una pagina web.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 26 ABRIL 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 import requests
 from PIL import Image # pip install Pillow
@@ -17,10 +17,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome('./chromedriver.exe')
+driver = webdriver.Chrome('./chromedriver')
 
 # Voy a la pagina que requiero
-driver.get('https://www.olx.com.ec')
+driver.get('https://www.olx.com.ar')
+
+sleep(3) # Soluciona bug extrano en OLX
 
 for i in range(1): # Voy a darle click en cargar mas 3 veces
     try:
@@ -52,21 +54,21 @@ sleep(5)
 
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-anuncios = driver.find_elements_by_xpath('//li[@data-aut-id="itemBox"]')
+anuncios = driver.find_elements('xpath', '//li[@data-aut-id="itemBox"]')
 
 i = 0
 # Recorro cada uno de los anuncios que he encontrado
 for anuncio in anuncios:
-    print(anuncio.get_attribute('innerHTML'))
+    # print(anuncio.get_attribute('innerHTML'))
     # Por cada anuncio hallo el preico
-    precio = anuncio.find_element_by_xpath('.//span[@data-aut-id="itemPrice"]').text
+    precio = anuncio.find_element('xpath', './/span[@data-aut-id="itemPrice"]').text
     print (precio)
     # Por cada anuncio hallo la descripcion
-    descripcion = anuncio.find_element_by_xpath('.//span[@data-aut-id="itemTitle"]').text
+    descripcion = anuncio.find_element('xpath', './/span[@data-aut-id="itemTitle"]').text
     print (descripcion)
 
     try:
-        url = anuncio.find_element_by_xpath('.//figure[@data-aut-id="itemImage"]/img')
+        url = anuncio.find_element('xpath', './/figure[@data-aut-id="itemImage"]/img')
         # obtengo el URl de la imagen del anuncio
         url = url.get_attribute('src')
         

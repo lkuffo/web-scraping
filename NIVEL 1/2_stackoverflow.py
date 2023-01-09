@@ -3,7 +3,7 @@ OBJETIVO:
   - Extraer las preguntas de la pagina principal de Stackoverflow
   - Aprender a utilizar Beautiful Soup para parsear el arbol HTML
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 12 ABRIL 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 import requests
 from bs4 import BeautifulSoup # pip install beautifulsoup4
@@ -22,12 +22,12 @@ respuesta = requests.get(url, headers=headers)
 # PARSEO DEL ARBOL CON BEAUTIFUL SOUP
 soup = BeautifulSoup(respuesta.text)
 contenedor_de_preguntas = soup.find(id="questions") # ENCONTRAR UN ELEMENTO POR ID
-lista_de_preguntas = contenedor_de_preguntas.find_all('div', class_="question-summary") # ENCONTRAR VARIOS ELEMENTOS POR TAG Y POR CLASE
+lista_de_preguntas = contenedor_de_preguntas.find_all('div', class_="s-post-summary") # ENCONTRAR VARIOS ELEMENTOS POR TAG Y POR CLASE
 for pregunta in lista_de_preguntas: # ITERAR ELEMENTO POR ELEMENTO
 
   # METODO #1: METODO TRADICIONAL
   texto_pregunta = pregunta.find('h3').text # DENTRO DE CADA ELEMENTO ITERADO ENCONTRAR UN TAG
-  descripcion_pregunta = pregunta.find(class_='excerpt').text # ENCONTRAR POR CLASE
+  descripcion_pregunta = pregunta.find(class_='s-post-summary--content-excerpt').text # ENCONTRAR POR CLASE
   descripcion_pregunta = descripcion_pregunta.replace('\n', '').replace('\r', '') # LIMPIEZA DE TEXTO
   print (texto_pregunta)
   print (descripcion_pregunta)
@@ -41,9 +41,9 @@ for pregunta in lista_de_preguntas: # ITERAR ELEMENTO POR ELEMENTO
   texto_descripcion_pregunta = descripcion_pregunta.text
 
   texto_descripcion_pregunta = texto_descripcion_pregunta.replace('\n', '').replace('\t', '')
-  print (texto_pregunta)
-  print (texto_descripcion_pregunta)
-  print ()
+  # print (texto_pregunta)
+  # print (texto_descripcion_pregunta)
+  # print ()
 
 
 

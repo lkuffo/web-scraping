@@ -4,7 +4,7 @@ OBJETIVOS:
     - Aprender a utilizar requests para hacer requerimientos
     - Aprender a utilizar lxml para parsear el arbol HTML
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 12 ABRIL 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 import requests # pip install requests
 from lxml import html # pip install lxml
@@ -19,10 +19,10 @@ url = 'https://www.wikipedia.org/'
 
 # REQUERIMIENTO AL SERVIDOR
 respuesta = requests.get(url, headers=headers)
-respuesta.encoding = 'UTF-8' # Codificar correctamente caracteres extranos
+respuesta.encoding = 'utf-8' # Codificar correctamente caracteres extranos
 
 # PARSEO DEL ARBOL HTML QUE RECIBO COMO RESPUESTA CON LXML
-parser = html.fromstring(respuesta.text)
+parser = html.fromstring(respuesta.content)
 
 # EXTRACCION DE IDIOMA INGLES
 ingles = parser.get_element_by_id("js-link-box-en")

@@ -1,10 +1,14 @@
+"""
+CREADO POR: LEONARDO KUFFO
+ULTIMA VEZ EDITADO: 09 ENERO 2023
+"""
 import requests # pip install requests
 from lxml import html # pip install lxml
 import json
 
 # USER AGENT PARA PROTEGERNOS DE BANEOS
 headers = {
-    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
 }
 
 # URL SEMILLA

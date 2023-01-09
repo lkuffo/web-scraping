@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar LoopingCalls en Scrapy.
     - Utilizar Scrapy de una manera simplificada.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 2 SEPTIEMBRE 2020
+ULTIMA VEZ EDITADO: 9 ENERO 2023
 """
 
 from twisted.internet import reactor # viene instalado con scrapy
@@ -33,12 +33,12 @@ class ExtractorClima(Spider):
 
     def parse(self, response):
         ciudad = response.xpath('//h1/text()').get()
-        current = response.xpath('//div[contains(@class, "cur-con-weather-card__panel")]//div[@class="temp"]/text()').get()
-        real_feel = response.xpath('//div[contains(@class, "cur-con-weather-card__panel")]//div[@class="real-feel"]/text()').get()
+        current = response.xpath('//div[contains(@class, "cur-con-weather-card__body")]//div[@class="temp"]/text()').get()
+        real_feel = response.xpath('//div[contains(@class, "cur-con-weather-card__body")]//div[@class="real-feel"]/text()').get()
 
         # Limpieza de datos
         ciudad = ciudad.replace('\n', '').replace('\r', '').strip()
-        current = current.replace('°', '').replace('\n', '').replace('\r', '').strip()
+        current = current.replace('C', '').replace('°', '').replace('\n', '').replace('\r', '').strip()
         real_feel = real_feel.replace('RealFeel®', '').replace('°', '').replace('\n', '').replace('\r', '').strip()
         
         # Guardado de datos en un archivo

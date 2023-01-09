@@ -7,8 +7,9 @@ OBJETIVO:
     - Aprender a manejar el "retroceso" del navegador
     - Aprender a definir user_agents en Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 2 mrzo 2021
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
+from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -17,11 +18,11 @@ from selenium.webdriver.chrome.options import Options
 
 # Definimos el User Agent en Selenium utilizando la clase Options
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36")
-driver = webdriver.Chrome('./chromedriver.exe', chrome_options=opts) # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
+driver = webdriver.Chrome('./chromedriver', chrome_options=opts) # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
 
 #URL SEMILLA
-driver.get('https://listado.mercadolibre.com.ec/repuestos-autos-camionetas-bujias')
+driver.get('https://listado.mercadolibre.com.ec/herramientas-vehiculos/')
 
 
 # LOGICA DE MAXIMA PAGINACION CON LAZO WHILE
@@ -29,9 +30,11 @@ driver.get('https://listado.mercadolibre.com.ec/repuestos-autos-camionetas-bujia
 PAGINACION_MAX = 10
 PAGINACION_ACTUAL = 1
 
+sleep(3) # Esperar a que todo cargue correctamente
+
 # Debemos darle click al boton de disclaimer para que no interrumpa nuestras acciones
 try: # Encerramos todo en un try catch para que si no aparece el discilamer, no se caiga el codigo
-  disclaimer = driver.find_element(By.XPATH, '//button[@id="cookieDisclaimerButton"]')
+  disclaimer = driver.find_element(By.XPATH, '//button[@data-testid="action:understood-button"]')
   disclaimer.click() # lo obtenemos y le damos click
 except Exception as e:
   print (e) 
@@ -40,7 +43,7 @@ except Exception as e:
 # Mientras la pagina en la que me encuentre, sea menor que la maxima pagina que voy a sacar... sigo ejecutando...
 while PAGINACION_MAX > PAGINACION_ACTUAL:
 
-  links_productos = driver.find_elements(By.XPATH, '//a[@class="ui-search-item__group__element ui-search-link"]')
+  links_productos = driver.find_elements(By.XPATH, '//a[@class="ui-search-item__group__element shops__items-group-details ui-search-link"]')
   links_de_la_pagina = []
   for a_link in links_productos:
     links_de_la_pagina.append(a_link.get_attribute("href"))
@@ -49,7 +52,7 @@ while PAGINACION_MAX > PAGINACION_ACTUAL:
   # Es por esto que, la mejor estrategia es obtener todos los links como cadenas de texto y luego iterarlos.
 
   for link in links_de_la_pagina:
-
+    sleep(2) # Prevenir baneos de IP
     try:
       # Voy a cada uno de los links de los detalles de los productos
       driver.get(link)
@@ -59,7 +62,7 @@ while PAGINACION_MAX > PAGINACION_ACTUAL:
       #   EC.presence_of_element_located((By.XPATH, '//span[contains(@class,"price-tag")]'))
       # )
       titulo = driver.find_element(By.XPATH, '//h1').text
-      precio = driver.find_element(By.XPATH, '//span[contains(@class,"price-tag ui-pdp-price__part")]').text
+      precio = driver.find_element(By.XPATH, '//span[contains(@class,"ui-pdp-price")]').text
       print (titulo)
       print (precio.replace('\n', '').replace('\t', ''))
 

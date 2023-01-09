@@ -3,7 +3,7 @@ OBJETIVO:
     - Aprender a realizar actualizacion de datos periodicamente a MongoDB desde Scrapy
     - Aprender sobre los queries UPSERT
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 2 MAYO 2020
+ULTIMA VEZ EDITADO: 9 ENERO 2023
 """
 from twisted.internet import reactor
 from twisted.internet.task import LoopingCall
@@ -32,10 +32,10 @@ class ExtractorClima(Spider):
     def parse(self, response):
         print(response)
         ciudad = response.xpath('//h1/text()').get()
-        current = response.xpath('//a[contains(@class, "card current")]//div[@class="temp"]/span[1]/text()').get()
-        real_feel = response.xpath('//a[contains(@class, "card current")]//div[@class="real-feel"]/text()').get()
+        current = response.xpath('//div[contains(@class, "cur-con-weather-card__body")]//div[@class="temp"]/text()').get()
+        real_feel = response.xpath('//div[contains(@class, "cur-con-weather-card__body")]//div[@class="real-feel"]/text()').get()
         ciudad = ciudad.replace('\n', '').replace('\r', '').strip()
-        current = current.replace('°', '').replace('\n', '').replace('\r', '').strip()
+        current = current.replace('C', '').replace('°', '').replace('\n', '').replace('\r', '').strip()
         real_feel = real_feel.replace('RealFeel®', '').replace('°', '').replace('\n', '').replace('\r', '').strip()
 
         # Debo elegir cual de mis propiedades va a ser UNICA a lo largo de todos los documentos

@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar la espera por eventos de Selenium.
     - Aprender a optimizar el tiempo de ejecucion de nuestras extracciones por Selenium de manera inteligente
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ABRIL 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 import random
 from selenium import webdriver
@@ -18,10 +18,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 driver = webdriver.Chrome('./chromedriver') # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
 
 # Voy a la pagina que requiero
-driver.get('https://www.olx.com.ec')
+driver.get('https://www.olx.com.ar')
 
 
 for i in range(3): # Voy a darle click en cargar mas 3 veces
+    sleep(1) # Solucion a bug extrano en carga inicial 
     try:
         # Esperamos a que el boton se encuentre disponible a traves de una espera por eventos
         # Espero un maximo de 10 segundos, hasta que se encuentre el boton dentro del DOM
@@ -43,18 +44,18 @@ for i in range(3): # Voy a darle click en cargar mas 3 veces
 
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-autos = driver.find_elements_by_xpath('//li[@data-aut-id="itemBox"]')
+autos = driver.find_elements('xpath', '//li[@data-aut-id="itemBox"]')
 
 # Recorro cada uno de los anuncios que he encontrado
 for auto in autos:
     # Por cada anuncio hallo el precio, que en esta pagina principal, rara vez suele no estar, por eso hacemos esta validacion.
     try:
-      precio = auto.find_element_by_xpath('.//span[@data-aut-id="itemPrice"]').text
+      precio = auto.find_element('xpath', './/span[@data-aut-id="itemPrice"]').text
     except:
       precio = 'NO DISPONIBLE'
     print (precio)
     # Por cada anuncio hallo la descripcion
-    descripcion = auto.find_element_by_xpath('.//span[@data-aut-id="itemTitle"]').text
+    descripcion = auto.find_element('xpath', './/span[@data-aut-id="itemTitle"]').text
     print (descripcion)
 
 

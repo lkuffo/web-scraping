@@ -4,16 +4,17 @@ OBJETIVO:
     - Aprender a resolver captchas de manera automatica.
     - Aprender a utilizar el API de 2CAPTCHA. Un servicio resolvedor de captchas.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 17 ABRIL 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 from selenium import webdriver
 from time import sleep
 import requests
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/59.0.3071.115 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
 
-driver = webdriver.Chrome('./chromedriver.exe', chrome_options=opts)
+driver = webdriver.Chrome('./chromedriver', chrome_options=opts)
 
 url = 'https://www.google.com/recaptcha/api2/demo'
 driver.get(url)
@@ -21,11 +22,11 @@ driver.get(url)
 try:
 
   # Obtengo el identificador unico del catpcha
-  captcha_key = driver.find_element_by_id('recaptcha-demo').get_attribute('data-sitekey')
+  captcha_key = driver.find_element(By.ID, 'recaptcha-demo').get_attribute('data-sitekey')
   
   # Armo el requerimiento a 2captcha
   url = "https://2captcha.com/in.php?"
-  url += "key=" + "API_EN_RECURSOS_DE_CLASE" # API KEY 2CAPTCHA
+  url += "key=" + "deb56d806b426e7372d84efb4f513246" # API KEY 2CAPTCHA
   url += "&method=userrecaptcha"
   url += "&googlekey=" + captcha_key
   url += "&pageurl=" + url
@@ -44,7 +45,7 @@ try:
 
   # Armo el requerimiento para consultar si el captcha ya se encuentra resuelto
   url_resp = "https://2captcha.com/res.php?"
-  url_resp += "key=" + "f300d3f245f9820efaced256a2b5c942" # API KEY
+  url_resp += "key=" + "2CAPTCHA_API_KEY_VER_DESCRIPCION_CLASE" # API KEY
   url_resp += "&action=get"
   url_resp += "&id=" + captcha_service_key # ID del captcha en el sistema de 2CAPTCHA obtenido previamente
   url_resp += "&json=0"
@@ -77,7 +78,7 @@ try:
   driver.execute_script(insertar_solucion)
 
   # Doy click en el boton de submit y deberia avanzar
-  submit_button = driver.find_element_by_xpath('//input[@id="recaptcha-demo-submit"]')
+  submit_button = driver.find_element('xpath', '//input[@id="recaptcha-demo-submit"]')
   submit_button.click()
 except Exception as e:
   print (e) 
@@ -86,5 +87,5 @@ except Exception as e:
 print ("Ya debo de estar en la pagina donde esta la informacion...")
 
 # Extraigo la informacion detras del captcha
-contenido = driver.find_element_by_class_name('recaptcha-success')
+contenido = driver.find_element(By.CLASS_NAME, 'recaptcha-success')
 print (contenido.text)

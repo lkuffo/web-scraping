@@ -1,0 +1,4 @@
+*.code-workspace
+chromedriver*
+*.pyc
+__pycache__

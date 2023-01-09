@@ -3,7 +3,7 @@ OBJETIVO:
     - Aprender a realizar actualizacion de datos periodicamente a MongoDB desde Selenium
     - Aprender sobre los queries UPSERT
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 1 MAYO 2020
+ULTIMA VEZ EDITADO: 9 ENERO 2023
 """
 import schedule
 import time
@@ -26,9 +26,9 @@ def extraer_datos():
     for url in start_urls:
         driver.get(url)
 
-        ciudad = driver.find_element_by_xpath('//h1').text
-        current = driver.find_element_by_xpath('//a[contains(@class, "card current")]//div[@class="temp"]/span[1]').text
-        real_feel = driver.find_element_by_xpath('//a[contains(@class, "card current")]//div[@class="real-feel"]').text
+        ciudad = driver.find_element('xpath', '//h1').text
+        current = driver.find_element('xpath', '//div[contains(@class, "cur-con-weather-card__body")]//div[@class="temp"]').text
+        real_feel = driver.find_element('xpath', '//div[contains(@class, "cur-con-weather-card__body")]//div[@class="real-feel"]').text
 
         ciudad = ciudad.replace('\n', '').replace('\r', '').strip()
         current = current.replace('°', '').replace('\n', '').replace('\r', '').strip()

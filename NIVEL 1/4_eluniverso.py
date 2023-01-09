@@ -3,7 +3,7 @@ OBJETIVO:
     - Extraer los titulares y el resumen de las noticias en la pagina principal de deportes de EL UNIVERSO.
     - Contrastar el uso de Beautiful Soup y Scrapy para parsear el arbol HTML.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 21 abril 2021
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 
 from scrapy.item import Field

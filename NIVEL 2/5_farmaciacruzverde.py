@@ -1,8 +1,12 @@
 """	
+===========================================
+============= DESACTUALIZADO ==============
+====== AHORA UTILIZA CARGA DINAMICA =======
+===========================================
 OBJETIVO: 	
     - Aprender a utilizar Link Extractor de una manera mas sofisticada	
 CREADO POR: LEONARDO KUFFO	
-ULTIMA VEZ EDITADO: 2 marzo 2021
+ULTIMA VEZ EDITADO: 03 ENERO 2023
 """
 from scrapy.item import Field
 from scrapy.item import Item

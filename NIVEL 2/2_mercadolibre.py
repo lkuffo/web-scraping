@@ -3,7 +3,7 @@ OBJETIVO:
     - Extraer informacion sobre los productos en la pagina de Mercado Libre Mascotas
     - Aprender a realizar extracciones verticales y horizontales utilizando reglas
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 2 marzo 2021
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -23,7 +23,7 @@ class MercadoLibreCrawler(CrawlSpider):
     name = 'mercadoLibre'
 
     custom_settings = {
-      'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',
+      'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
       'CLOSESPIDER_PAGECOUNT': 20 # Numero maximo de paginas en las cuales voy a descargar items. Scrapy se cierra cuando alcanza este numero
     }
 
@@ -53,10 +53,10 @@ class MercadoLibreCrawler(CrawlSpider):
         # Utilizo Map Compose con funciones anonimas
         # PARA INVESTIGAR: Que son las funciones anonimas en Python?
         item.add_xpath('titulo', '//h1/text()', MapCompose(lambda i: i.replace('\n', ' ').replace('\r', ' ').strip()))
-        item.add_xpath('descripcion', '//div[@class="item-description__text"]/p/text()', MapCompose(lambda i: i.replace('\n', ' ').replace('\r', ' ').strip()))
+        item.add_xpath('descripcion', '//div[@class="ui-pdp-description"]/p/text()', MapCompose(lambda i: i.replace('\n', ' ').replace('\r', ' ').strip()))
 
         soup = BeautifulSoup(response.body)
-        precio = soup.find(class_="price-tag ui-pdp-price__part")
+        precio = soup.find(class_="andes-money-amount__fraction")
         precio_completo = precio.text.replace('\n', ' ').replace('\r', ' ').replace(' ', '') # texto de todos los hijos
         item.add_value('precio', precio_completo)
 

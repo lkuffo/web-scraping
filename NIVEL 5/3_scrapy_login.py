@@ -2,7 +2,7 @@
 OBJETIVO:  
     - Inicio de sesion a partir de formulario con scrapy
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 26 DICIEMBRE 2020
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 from scrapy.item import Field
 from scrapy.item import Item

@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales utilizando reglas
     - Aprender a utilizar MapCompose para realizar limpieza de datos
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 21 abril 2021
+ULTIMA VEZ EDITADO: 09 ENERO 2023
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -25,7 +25,7 @@ class Hotel(Item):
 class TripAdvisor(CrawlSpider):
     name = 'hotelestripadvisor'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36'
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
     }
 
     # Reduce el espectro de busqueda de URLs. No nos podemos salir de los dominios de esta lista
@@ -55,11 +55,11 @@ class TripAdvisor(CrawlSpider):
 
         item = ItemLoader(Hotel(), sel)
         item.add_xpath('nombre', '//h1[@id="HEADING"]/text()')
-        item.add_xpath('score', './/div[@class="kVNDLtqL"]/span/text()',
+        item.add_xpath('score', './/div[@class="grdwI P"]/span/text()',
                         MapCompose(self.quitarDolar))
         # Utilizo Map Compose con funciones anonimas
         # PARA INVESTIGAR: Que son las funciones anonimas en Python?
-        item.add_xpath('descripcion', '//div[@class="ui_column  "]//div[@class="cPQsENeY"]//text()', # //text() nos permite obtener el texto de todos los hijos
+        item.add_xpath('descripcion', '//div[@class="ssr-init-26f"]//div[@class="fIrGe _T"]//text()', # //text() nos permite obtener el texto de todos los hijos
                        MapCompose(lambda i: i.replace('\n', '').replace('\r', '')))
         item.add_xpath('amenities',
                        '//div[contains(@data-test-target, "amenity_text")]/text()')
