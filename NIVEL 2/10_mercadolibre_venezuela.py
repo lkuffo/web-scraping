@@ -16,13 +16,13 @@ class Articulo(Item):
 class Mercadolibre(CrawlSpider):
     name = "Scrap-MercadoLibre"
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
         'CLOSESPIDER_PAGECOUNT': 10
     }
  
     download_delay = 2
  
-    allowed_domains = ["listado.mercadolibre.com.ve","articulo.mercadolibre.com.ve","mercadolibre.com.ve"]
+    allowed_domains = ["listado.mercadolibre.com.ve", "articulo.mercadolibre.com.ve", "mercadolibre.com.ve"]
  
     start_urls = ["https://listado.mercadolibre.com.ve/perros#D[A:perros]"]
  
@@ -30,7 +30,7 @@ class Mercadolibre(CrawlSpider):
         # Paginacion
         Rule(
             LinkExtractor(
-                allow=r'_Desde_'
+                allow=r'/_Desde_\d+' # Patron en donde se utiliza "\d+", expresion que puede tomar el valor de cualquier combinacion de numeros
             ),follow=True
         ),
         # Detalles de los productos
@@ -48,9 +48,9 @@ class Mercadolibre(CrawlSpider):
     def parse_items(self, response):
         sel = Selector(response)
         item = ItemLoader(Articulo(), sel)
-        item.add_xpath('titulo', '//h1/text()',MapCompose(self.Limpiartext))
-        item.add_xpath('precio', '//span[@class="price-tag-fraction"]/text()')
-        item.add_xpath('descripcion', '//div[@class="item-description__text"]/p/text()', MapCompose(self.Limpiartext))
-        item.add_xpath('imagen', '//img[@itemprop="thumbnailUrl"]/@src')
+        item.add_xpath('titulo', '//h1/text()', MapCompose(self.Limpiartext))
+        item.add_xpath('precio', '//span[@class="andes-money-amount__fraction"]/text()')
+        item.add_xpath('descripcion', '//div[@class="ui-pdp-description"]/p/text()', MapCompose(self.Limpiartext))
+        item.add_xpath('imagen', '//img[@class="ui-pdp-image ui-pdp-gallery__figure__image" and @data-index="0"]/@src')
  
         yield item.load_item()
