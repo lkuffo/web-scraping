@@ -46,20 +46,18 @@ class MercadoLibreCrawler(CrawlSpider):
             ), follow=True, callback='parse_items'), # Al entrar al detalle de los productos, se llama al callback con la respuesta al requerimiento
     )
 
+    def limpiarTexto(self, texto):
+        nuevoTexto = texto.replace('\n', ' ').replace(
+            '\r', ' ').replace('\t', ' ').replace('*', '').replace('-', '').strip()
+        return nuevoTexto
+
     def parse_items(self, response):
 
         item = ItemLoader(Articulo(), response)
+        item.add_xpath('titulo', '//h1/text()', MapCompose(self.limpiarTexto))
+        item.add_xpath('descripcion', "//p[@class='ui-pdp-description__content']/text()", MapCompose(self.limpiarTexto))
+        item.add_xpath('precio', "//div[contains(@class, 'ui-pdp-price')]//span[@class='andes-money-amount__fraction']/text()")
         
-        # Utilizo Map Compose con funciones anonimas
-        # PARA INVESTIGAR: Que son las funciones anonimas en Python?
-        item.add_xpath('titulo', '//h1/text()', MapCompose(lambda i: i.replace('\n', ' ').replace('\r', ' ').strip()))
-        item.add_xpath('descripcion', '//div[@class="ui-pdp-description"]/p/text()', MapCompose(lambda i: i.replace('\n', ' ').replace('\r', ' ').strip()))
-
-        soup = BeautifulSoup(response.body)
-        precio = soup.find(class_="andes-money-amount__fraction")
-        precio_completo = precio.text.replace('\n', ' ').replace('\r', ' ').replace(' ', '') # texto de todos los hijos
-        item.add_value('precio', precio_completo)
-
         yield item.load_item()
 
 # EJECUCION
