@@ -49,5 +49,5 @@ for auto in autos:
     precio = auto.find_element(By.XPATH, './/span[@data-aut-id="itemPrice"]').text
     print (precio)
     # Por cada anuncio hallo la descripcion
-    descripcion = auto.find_element(By.XPATH, './/span[@data-aut-id="itemTitle"]').text
+    descripcion = auto.find_element(By.XPATH, './/div[@data-aut-id="itemTitle"]').text
     print (descripcion)
