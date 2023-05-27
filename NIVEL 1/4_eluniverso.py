@@ -3,7 +3,7 @@ OBJETIVO:
     - Extraer los titulares y el resumen de las noticias en la pagina principal de deportes de EL UNIVERSO.
     - Contrastar el uso de Beautiful Soup y Scrapy para parsear el arbol HTML.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 28 FEBRERO 2023
 """
 
 from scrapy.item import Field
@@ -48,7 +48,7 @@ class ElUniversoSpider(Spider):
 
         # METODO #2: UTILIZANDO BEAUTIFUL SOUP => En este caso aumenta un poco la complejidad
 
-        # soup = BeautifulSoup(response.body)
+        # soup = BeautifulSoup(response.body) # EN GOOGLE COLAB: Cambiar a --> response.text
         # contenedor_noticias=soup.find_all(class_="feed | divide-y relative")
         # id = 0
         # for contenedor in contenedor_noticias:
