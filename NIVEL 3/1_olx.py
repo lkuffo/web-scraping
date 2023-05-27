@@ -45,9 +45,12 @@ autos = driver.find_elements(By.XPATH, '//li[@data-aut-id="itemBox"]')
 
 # Recorro cada uno de los anuncios que he encontrado
 for auto in autos:
-    # Por cada anuncio hallo el precio
-    precio = auto.find_element(By.XPATH, './/span[@data-aut-id="itemPrice"]').text
-    print (precio)
-    # Por cada anuncio hallo la descripcion
-    descripcion = auto.find_element(By.XPATH, './/div[@data-aut-id="itemTitle"]').text
-    print (descripcion)
+    try:
+        # Por cada anuncio hallo el precio
+        precio = auto.find_element(By.XPATH, './/span[@data-aut-id="itemPrice"]').text
+        print (precio)
+        # Por cada anuncio hallo la descripcion
+        descripcion = auto.find_element(By.XPATH, './/div[@data-aut-id="itemTitle"]').text
+        print (descripcion)
+    except Exception as e:
+        print ('Anuncio carece de precio o descripcion')
