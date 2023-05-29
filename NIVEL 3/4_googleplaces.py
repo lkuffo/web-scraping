@@ -62,7 +62,7 @@ restaurantsReviews = driver.find_elements(By.XPATH, '//div[@data-review-id and n
 for review in restaurantsReviews:
   sleep(1) # Evitar baneos
   # Obtengo el contenedor del nombre de usuario
-  userLink = review.find_element(By.XPATH, './/a[contains(@href, "contrib")]')
+  userLink = review.find_element(By.XPATH, "//div[contains(@class, 'WNx')]//button")
 
   try:
 
