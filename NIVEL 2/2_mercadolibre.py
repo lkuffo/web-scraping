@@ -3,7 +3,7 @@ OBJETIVO:
     - Extraer informacion sobre los productos en la pagina de Mercado Libre Mascotas
     - Aprender a realizar extracciones verticales y horizontales utilizando reglas
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 28 FEBRERO 2023
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -55,7 +55,7 @@ class MercadoLibreCrawler(CrawlSpider):
         item.add_xpath('titulo', '//h1/text()', MapCompose(lambda i: i.replace('\n', ' ').replace('\r', ' ').strip()))
         item.add_xpath('descripcion', '//div[@class="ui-pdp-description"]/p/text()', MapCompose(lambda i: i.replace('\n', ' ').replace('\r', ' ').strip()))
 
-        soup = BeautifulSoup(response.body)
+        soup = BeautifulSoup(response.body) # EN GOOGLE COLAB: Cambiar a --> response.text
         precio = soup.find(class_="andes-money-amount__fraction")
         precio_completo = precio.text.replace('\n', ' ').replace('\r', ' ').replace(' ', '') # texto de todos los hijos
         item.add_value('precio', precio_completo)
