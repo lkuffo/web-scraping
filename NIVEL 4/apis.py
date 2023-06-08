@@ -14,8 +14,8 @@ import pandas as pd
 
 headers = {
     # El encabezado de referer es importante. Sin esto, este API en especifico me respondera 403
-    "referer": "https://www.udemy.com/courses/search/?p=2&q=python&src=ukw",
-    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+    "Referer": "https://www.udemy.com/courses/search/?p=2&q=python&src=ukw",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
 }
 
 # Este lazo for me ayudara a iterar el parametro "page" del API
