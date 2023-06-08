@@ -14,6 +14,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager # pip install webdriver-manager
 
 # User agent
 opts = Options()
@@ -30,7 +32,8 @@ def getScrollingScript(iteration):
     """
     return scrollingScript.replace('20000', str(20000 * (iteration + 1)))
 
-driver = webdriver.Chrome('./chromedriver', chrome_options=opts)
+# Selenium 4.10
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
 driver.get('https://www.google.com/maps/place/Restaurante+Amazonico/@40.423706,-3.6872655,17z/data=!4m7!3m6!1s0xd422899dc90366b:0xce28a1dc0f39911d!8m2!3d40.423706!4d-3.6850768!9m1!1b1')
 
 # A veces google places necesita una espera adicional para encontrarse verdaderamente cargado
