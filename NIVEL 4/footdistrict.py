@@ -12,7 +12,7 @@ headers = {
 }
 
 
-url = "https://footdistrict.com/air-jordan-xxxvii-dd6958-108.html"
+url = "https://footdistrict.com/zapatillas/f/b/jordan/"
 
 resp = requests.get(url, headers=headers)
 soup = BeautifulSoup(resp.text, features="lxml")
