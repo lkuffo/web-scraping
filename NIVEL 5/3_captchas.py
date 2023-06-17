@@ -11,10 +11,13 @@ from selenium import webdriver
 from time import sleep
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
 opts = Options()
 opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
 
-driver = webdriver.Chrome('./chromedriver', chrome_options=opts)
+driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
 
 url = 'https://www.google.com/recaptcha/api2/demo'
 driver.get(url)

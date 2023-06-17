@@ -34,7 +34,8 @@ class IGNCrawler(CrawlSpider):
     name = 'ign'
     custom_settings = {
       'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',
-      'CLOSESPIDER_PAGECOUNT': 100 # Un poco alto
+      'CLOSESPIDER_PAGECOUNT': 100, # Un poco alto
+      'FEED_EXPORT_FIELDS': ['titulo', 'calificacion', 'fecha_de_publicacion', 'contenido']
     }
 
     allowed_domains = ['latam.ign.com']

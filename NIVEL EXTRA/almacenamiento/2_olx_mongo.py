@@ -9,6 +9,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
 from pymongo import MongoClient # pip install pymongo
 
 client = MongoClient('localhost')
@@ -17,7 +20,7 @@ col = db['anuncios_selenium']
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome('./chromedriver')
+driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
 
 # Voy a la pagina que requiero
 driver.get('https://www.olx.com.ar')

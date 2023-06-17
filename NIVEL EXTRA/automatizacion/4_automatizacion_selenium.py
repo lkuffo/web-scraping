@@ -8,6 +8,8 @@ ULTIMA VEZ EDITADO: 9 ENERO 2023
 import schedule # pip install schedule
 import time
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 start_urls = [
     "https://www.accuweather.com/es/ec/guayaquil/127947/weather-forecast/127947",
@@ -16,7 +18,7 @@ start_urls = [
 ]
 
 def extraer_datos():
-    driver = webdriver.Chrome('./chromedriver')
+    driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
 
     # Por cada una de las URLs que quiero extraer...
     for url in start_urls:

@@ -1,7 +1,8 @@
 """
-Objetivo: Extraer las tallas de los zapatos
+Objetivo: 
+   - Extraer datos de un tag script
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 16 JUNIO 2023
 """
 import requests
 import json
@@ -12,7 +13,7 @@ headers = {
 }
 
 
-url = "https://footdistrict.com/air-jordan-xxxvii-dd6958-108.html"
+url = "https://footdistrict.com/air-jordan-1-mid-ss-ps-dx4378-400.html"
 
 resp = requests.get(url, headers=headers)
 soup = BeautifulSoup(resp.text, features="lxml")

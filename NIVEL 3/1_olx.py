@@ -15,10 +15,17 @@ import random
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium import webdriver # pip install selenium
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+
+# Asi podemos setear el user-agent en selenium
+opts = Options()
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome('./chromedriver') # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
+driver = webdriver.Chrome(service = Service('./chromedriver'), options=opts) # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
+
 # Voy a la pagina que requiero
 driver.get('https://www.olx.com.ar/autos_c378')
 sleep(3)

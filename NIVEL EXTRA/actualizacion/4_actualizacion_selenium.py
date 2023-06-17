@@ -8,6 +8,8 @@ ULTIMA VEZ EDITADO: 9 ENERO 2023
 import schedule
 import time
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pymongo import MongoClient # pip install pymongo
 client = MongoClient('localhost')
@@ -21,7 +23,7 @@ start_urls = [
 ]
 
 def extraer_datos():
-    driver = webdriver.Chrome('./chromedriver.exe')
+    driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
 
     for url in start_urls:
         driver.get(url)
