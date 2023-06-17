@@ -1,7 +1,7 @@
 """
 OBJETIVO: 
     - Actualización de Twitter 2023
-CREADO POR: LEONARDO KUFFO
+CREADO POR: TOMAS ALLAMI (https://github.com/Tallami) y  LEONARDO KUFFO
 ULTIMA VEZ EDITADO: 16 JUNIO 2023
 """
 
