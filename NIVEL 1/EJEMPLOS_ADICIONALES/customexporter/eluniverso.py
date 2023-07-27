@@ -36,7 +36,7 @@ class ElUniversoSpider(Spider):
 
     def parse(self, response):
         sel = Selector(response)
-        noticias = sel.xpath('//div[@class="view-content"]/div[@class="posts"]')
+        noticias = sel.xpath('//div[contains(@class, "content-feed")]/ul/li')
         for i, elem in enumerate(noticias): # PARA INVESTIGAR: Para que sirve enumerate?
             item = ItemLoader(Noticia(), elem) # Cargo mi item
 
@@ -68,4 +68,4 @@ class ElUniversoSpider(Spider):
         #     yield item.load_item()
 
 # EJECUCION
-# scrapy runspider 4_eluniverso.py -o resultados.csv -t csv
+# scrapy runspider eluniverso.py -o resultados.csv -t csv

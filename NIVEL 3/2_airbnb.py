@@ -3,7 +3,7 @@ OBJETIVO:
     - Selenium en 2023: Objeto service y ChromeDriverManager
     - Selenium en Headless mode (sin navegador)
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 08 JUN 2023
+ULTIMA VEZ EDITADO: 27 JUL 2023
 """
 from time import sleep
 from selenium import webdriver
@@ -16,11 +16,14 @@ opts = Options()
 opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
 #opts.add_argument("--headless") # Headless Mode
 
+# Ahora podemos utilizar Selenium sin configurar el chromedriver (Julio 2023, Chrome > 115)
+driver = webdriver.Chrome(options=opts)
+
 # Descarga automática del ChromeDriver
-driver = webdriver.Chrome(
-    service=Service(ChromeDriverManager().install()),
-    options=opts
-)
+# driver = webdriver.Chrome(
+#     service=Service(ChromeDriverManager().install()),
+#     options=opts
+# )
 
 # Alternativamente:
 # driver = webdriver.Chrome(
