@@ -19,7 +19,7 @@ from webdriver_manager.chrome import ChromeDriverManager # pip install webdriver
 
 # User agent
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
 
 # Funcion para obtener el Script de Scrolling dependiendo de cuantos scrollings ya he hecho
 # Es un approach mas inteligente que el utilizado en el video. En donde, mientras mas escrolls llevo dando, mas pixeles voy bajando.
@@ -64,8 +64,9 @@ restaurantsReviews = driver.find_elements(By.XPATH, '//div[@data-review-id and n
 # Por cada review...
 for review in restaurantsReviews:
   sleep(1) # Evitar baneos
-  # Obtengo el contenedor del nombre de usuario
-  userLink = review.find_element(By.XPATH, "//div[contains(@class, 'WNx')]//button")
+  # Obtengo el contenedor del nombre de usuario, el punto al inicio del XPATH es importante para que 
+  # la búsqueda por el usuario sea relativa al review actual
+  userLink = review.find_element(By.XPATH, ".//div[contains(@class, 'WNx')]//button")
 
   try:
 
@@ -75,7 +76,7 @@ for review in restaurantsReviews:
     driver.switch_to.window(driver.window_handles[1])
 
     # Damos click en el tab de opiniones del usuario, no sin antes esperar que este disponible
-    # ACTUALIZACION> YA NO ES NECESARIO PROQUE POR DEFECTO YA ESTAREMOS AQUI
+    # ACTUALIZACION: YA NO ES NECESARIO PROQUE POR DEFECTO YA ESTAREMOS AQUI
     # opiniones_tab = WebDriverWait(driver, 10).until(
     #   EC.presence_of_element_located((By.XPATH, '//button[@class="section-tab-bar-tab ripple-container section-tab-bar-tab-unselected"]'))
     # )
@@ -100,7 +101,11 @@ for review in restaurantsReviews:
 
       reviewRating = userReview.find_element(By.XPATH, './/span[@class="kvMYJc"]').get_attribute('aria-label')
       userParsedRating = float(''.join(filter(str.isdigit or str.isspace, reviewRating))) # Codigo para solamente quedarme con los digitos de una cadena. En la clase nos quedamos con toda la cadena.
-      reviewText = userReview.find_element(By.XPATH, './/span[@class="wiI7pd"]').text
+      reviewText = ""
+      try:
+        reviewText = userReview.find_element(By.XPATH, './/span[@class="wiI7pd"]').text
+      except:
+        print('Review sin texto')
 
       print(userParsedRating)
       print(reviewText)
