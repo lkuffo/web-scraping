@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar la espera por eventos de Selenium.
     - Aprender a optimizar el tiempo de ejecucion de nuestras extracciones por Selenium de manera inteligente
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 14 SEPTIEMBRE 2023
 """
 import random
 from selenium import webdriver
@@ -29,7 +29,7 @@ driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), op
 driver.get('https://www.olx.in/')
 
 
-for i in range(3): # Voy a darle click en cargar mas 3 veces
+for i in range(2): # Voy a darle click en cargar mas 2 veces
     sleep(1) # Solucion a bug extrano en carga inicial 
     try:
         # Esperamos a que el boton se encuentre disponible a traves de una espera por eventos
