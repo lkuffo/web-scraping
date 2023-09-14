@@ -26,7 +26,7 @@ opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap
 driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
 
 # Voy a la pagina que requiero
-driver.get('https://www.olx.com.ar')
+driver.get('https://www.olx.in/')
 
 
 for i in range(3): # Voy a darle click en cargar mas 3 veces

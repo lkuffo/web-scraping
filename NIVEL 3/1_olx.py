@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones que requieran una accion de click para cargar datos.
     - Introducirnos a la logica de Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 27 MAYO 2023
+ULTIMA VEZ EDITADO: 14 SEPTIEMBRE 2023
 """
 
 #####
@@ -17,6 +17,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver # pip install selenium
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 # Asi podemos setear el user-agent en selenium
 opts = Options()
@@ -24,13 +25,14 @@ opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome(service = Service('./chromedriver'), options=opts) # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
+driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
 
-# Voy a la pagina que requiero
-driver.get('https://www.olx.com.ar/autos_c378')
-sleep(3)
-driver.refresh() # Solucion de un bug extraño en Windows en donde los anuncios solo cargan al hacerle refresh o al darle click a algun elemento
-sleep(5) # Esperamos que cargue el boton
+# Voy a la pagina que quiero
+driver.get('https://www.olx.in/cars_c84')
+sleep(2)
+driver.refresh() # Solucion de un bug extraño en Windows en donde los anuncios solo cargan al hacerle refresh a la página
+sleep(2) # Esperamos que cargue el boton
+
 # Busco el boton para cargar mas informacion
 boton = driver.find_element(By.XPATH, '//button[@data-aut-id="btnLoadMore"]')
 for i in range(3): # Voy a darle click en cargar mas 3 veces
