@@ -1,9 +1,8 @@
 """
 OBJETIVO: 
-    - Extraer los titulares y el resumen de las noticias en la pagina principal de deportes de EL UNIVERSO.
-    - Contrastar el uso de Beautiful Soup y Scrapy para parsear el arbol HTML.
+    - Exportador CSV personalizado en Scrapy 
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 12 ABRIL 2020
+ULTIMA VEZ EDITADO: 02 NOV 2023
 """
 
 from scrapy.item import Field

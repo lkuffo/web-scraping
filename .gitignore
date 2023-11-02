@@ -4,3 +4,5 @@ chromedriver*
 __pycache__
 .DS_Store
 .idea
+password_fb.txt
+.ipynb_checkpoints
