@@ -35,7 +35,8 @@ class IGNCrawler(CrawlSpider):
     custom_settings = {
       'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',
       'CLOSESPIDER_PAGECOUNT': 100, # Un poco alto
-      'FEED_EXPORT_FIELDS': ['titulo', 'calificacion', 'fecha_de_publicacion', 'contenido']
+      'FEED_EXPORT_FIELDS': ['titulo', 'calificacion', 'fecha_de_publicacion', 'contenido'],
+      'FEED_EXPORT_ENCODING': 'utf-8' # Para que se muestren bien los caracteres especiales (ej. acentos)
     }
 
     allowed_domains = ['latam.ign.com']
@@ -74,7 +75,7 @@ class IGNCrawler(CrawlSpider):
     def parse_review(self, response):
         item = ItemLoader(Review(), response)
         item.add_xpath('titulo', '//h1/text()')
-        item.add_xpath('calificacion', '//div[@class="review"]//span[@class="side-wrapper side-wrapper hexagon-content"]/text()')
+        item.add_xpath('calificacion', '//div[@class="review"]//span[@class="side-wrapper side-wrapper hexagon-content"]/div/text()')
         yield item.load_item()
 
     # VIDEO
