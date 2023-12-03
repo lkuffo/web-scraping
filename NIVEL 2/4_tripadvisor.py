@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a reducir el espectro de busqueda para filtrar URLs en las reglas
     - Evitar obtener URLs repetidas
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 03 DICIEMBRE 2023
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -25,7 +25,7 @@ class Opinion(Item):
 class TripAdvisor(CrawlSpider):
   name = 'hotelestripadvisor'
   custom_settings = {
-    'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+    'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
     'CLOSESPIDER_PAGECOUNT': 100
   }
 
@@ -42,7 +42,7 @@ class TripAdvisor(CrawlSpider):
     Rule( 
       LinkExtractor( # DETALLE DE HOTELES (VERTICALIDAD DE PRIMER NIVEL)
         allow=r'/Hotel_Review-', 
-        restrict_xpaths=['//div[@class="prw_rup prw_meta_hsx_listing_name listing-title"]'] # Evita obtener URLs repetidas reduciendo el espectro de busqueda de las URLs a solamente un contenedor especifico dentro de un XPATH
+        restrict_xpaths=['//div[@data-automation="hotel-card-title"]/a'] # Evita obtener URLs repetidas reduciendo el espectro de busqueda de las URLs a solamente un contenedor especifico dentro de un XPATH
       ), follow=True), # No tiene callback porque aun no voy a extraer datos de aqui. Solamente voy a seguir otras URLs.
     Rule( 
       LinkExtractor( # HORIZONTALIDAD DE OPINIONES DE UN HOTEL (HORIZONTALIDAD DE SEGUNDO NIVEL)
@@ -70,4 +70,4 @@ class TripAdvisor(CrawlSpider):
       yield item.load_item()
       
 # EJECUCION
-# scrapy runspider 4_tripadvisor.py -o tripadvisor_users.csv -t csv
+# scrapy runspider 4_tripadvisor.py -o tripadvisor_users.csv

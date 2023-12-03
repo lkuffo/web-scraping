@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales utilizando reglas
     - Aprender a utilizar MapCompose para realizar limpieza de datos
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 03 DICIEMBRE 2023
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -25,7 +25,7 @@ class Hotel(Item):
 class TripAdvisor(CrawlSpider):
     name = 'hotelestripadvisor'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
     }
 
     # Reduce el espectro de busqueda de URLs. No nos podemos salir de los dominios de esta lista
