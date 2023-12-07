@@ -7,7 +7,7 @@ OBJETIVO:
     - Aprender a manejar el "retroceso" del navegador
     - Aprender a definir user_agents en Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 07 DICIEMBRE 2023
 """
 from time import sleep
 from selenium import webdriver
@@ -20,7 +20,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # Definimos el User Agent en Selenium utilizando la clase Options
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36")
 driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
 
 #URL SEMILLA
@@ -45,7 +45,7 @@ except Exception as e:
 # Mientras la pagina en la que me encuentre, sea menor que la maxima pagina que voy a sacar... sigo ejecutando...
 while PAGINACION_MAX > PAGINACION_ACTUAL:
 
-  links_productos = driver.find_elements(By.XPATH, '//a[@class="ui-search-item__group__element shops__items-group-details ui-search-link"]')
+  links_productos = driver.find_elements(By.XPATH, '//a[@class="ui-search-item__group__element ui-search-link__title-card ui-search-link"]')
   links_de_la_pagina = []
   for a_link in links_productos:
     links_de_la_pagina.append(a_link.get_attribute("href"))
@@ -66,7 +66,7 @@ while PAGINACION_MAX > PAGINACION_ACTUAL:
       titulo = driver.find_element(By.XPATH, '//h1').text
       precio = driver.find_element(By.XPATH, '//span[contains(@class,"ui-pdp-price")]').text
       print (titulo)
-      print (precio.replace('\n', '').replace('\t', ''))
+      print (precio.replace('\n', '').replace('\t', '')) # Podriamos realizar mas limpieza
 
       # Aplasto el boton de retroceso
       driver.back()

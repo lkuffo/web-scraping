@@ -2,7 +2,7 @@
 OBJETIVO: 
     - Extraer las preguntas de la pagina principal de Stackoverflow con Scrapy
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 07 DICIEMBRE 2023
 """
 
 # VER RECURSOS DE LA CLASE PARA INSTALAR SCRAPY
