@@ -47,7 +47,7 @@ class StackOverflowSpider(Spider):
 
             # Lleno las propiedades de mi ITEM a traves de expresiones XPATH a buscar dentro del selector "pregunta"
             item.add_xpath('pregunta', './/h3/a/text()') 
-            # item.add_xpath('descripcion', './/div[@class="s-post-summary--content-excerpt"]/text()')
+            item.add_xpath('descripcion', './/div[@class="s-post-summary--content-excerpt"]/text()')
             item.add_value('id', i)
             i += 1
             yield item.load_item() # Hago Yield de la informacion para que se escriban los datos en el archivo
