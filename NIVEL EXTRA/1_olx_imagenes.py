@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a descargar imagenes de la web a nuestra pc.
     - Aprender una segunda manera para hacer scrolling de una pagina web.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 02 ENERO 2024
 """
 import requests
 from PIL import Image # pip install Pillow
@@ -18,6 +18,10 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
+headers = {
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
+}
+
 opts = Options()
 opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
 
@@ -26,7 +30,7 @@ opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap
 driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
 
 # Voy a la pagina que requiero
-driver.get('https://www.olx.com.ar')
+driver.get('https://www.olx.in')
 
 sleep(3) # Soluciona bug extrano en OLX
 
@@ -79,7 +83,9 @@ for anuncio in anuncios:
         url = url.get_attribute('src')
         
         # con requests, hago el requerimiento a la URL de la imagen
-        image_content = requests.get(url).content
+        # Es importante aqui no olvidar los principios que hemos aprendido en el curso,
+        # y pasar headers con un user-agent
+        image_content = requests.get(url, headers=headers).content
 
         # PROCESAMIENTO DE LA IMAGEN
         image_file = io.BytesIO(image_content)
