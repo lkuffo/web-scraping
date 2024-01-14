@@ -3,7 +3,7 @@ OBJETIVO:
   - Extraer las preguntas de la pagina principal de Stackoverflow
   - Aprender a utilizar Beautiful Soup para parsear el arbol HTML
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 09 ENERO 2024
 """
 import requests
 from bs4 import BeautifulSoup # pip install beautifulsoup4

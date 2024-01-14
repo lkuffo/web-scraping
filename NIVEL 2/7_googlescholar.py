@@ -4,13 +4,12 @@ OBJETIVO:
     - Llenar el item con .add_value
     - Aprender el uso de .get() y .getall() para obtener información de la página
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 05 AGOSTO 2023
+ULTIMA VEZ EDITADO: 13 ENERO 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
-from scrapy.loader.processors import MapCompose
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 
@@ -42,8 +41,8 @@ class GoogleScholar(CrawlSpider):
     rules = (
         Rule( # Regla de movimiento VERTICAL hacia las citaciones de dicho articulo
             LinkExtractor(
-                restrict_xpaths='.//div[@class="gs_fl gs_flb"]'
-                #allow=r'\?cites=' # Si la URL contiene este patron, haz un requerimiento a esa URL
+                restrict_xpaths='.//div[@class="gs_fl gs_flb"]',
+                allow=r'\?cites=' # Si la URL contiene este patron, haz un requerimiento a esa URL
             ), follow=True, callback="parse_start_url"), # El callback es el nombre de la funcion que se va a llamar con la respuesta al requerimiento hacia estas URLs
     )
 

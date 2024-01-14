@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones que requieran una accion de click para cargar datos.
     - Introducirnos a la logica de Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 SEPTIEMBRE 2023
+ULTIMA VEZ EDITADO: 15 ENERO 2024
 """
 
 #####

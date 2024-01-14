@@ -7,7 +7,7 @@ OBJETIVO:
     - Aprender a manejar el "retroceso" del navegador
     - Aprender a definir user_agents en Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 07 DICIEMBRE 2023
+ULTIMA VEZ EDITADO: 15 ENERO 2024
 """
 from time import sleep
 from selenium import webdriver

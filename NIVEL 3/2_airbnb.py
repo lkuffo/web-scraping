@@ -17,13 +17,15 @@ opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap
 #opts.add_argument("--headless") # Headless Mode
 
 # Ahora podemos utilizar Selenium sin configurar el chromedriver (Julio 2023, Chrome > 115)
-driver = webdriver.Chrome(options=opts)
+# Aunque en Mac esto tiene problemas
+# driver = webdriver.Chrome(options=opts)
 
 # Descarga automática del ChromeDriver
-# driver = webdriver.Chrome(
-#     service=Service(ChromeDriverManager().install()),
-#     options=opts
-# )
+# Recomiendo esta forma de instanciar el ChromeDriver
+driver = webdriver.Chrome(
+    service=Service(ChromeDriverManager().install()),
+    options=opts
+)
 
 # Alternativamente:
 # driver = webdriver.Chrome(

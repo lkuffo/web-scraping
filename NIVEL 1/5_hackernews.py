@@ -3,7 +3,7 @@ OBJETIVO:
     - Solidificar los conocimientos de BeautifulSoup
     - Aprender otras técnicas para navegar por el árbol y obtener elementos en BeautifulSoup
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 05 AGOSTO 2023
+ULTIMA VEZ EDITADO: 14 ENERO 2023
 """
 
 import requests
@@ -22,7 +22,7 @@ respuesta = requests.get(url, headers=headers)
 print(respuesta)
 
 # Cargamos el arbol HTML en beautifoul soup
-soup = BeautifulSoup(respuesta.text)
+soup = BeautifulSoup(respuesta.text, 'lxml')
 
 # Obtenemos todas las noticias
 lista_de_noticias = soup.find_all('tr', class_="athing")
