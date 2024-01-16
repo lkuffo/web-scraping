@@ -1,8 +1,10 @@
 """
+==== Por ahora no está funcionando esta práctica ====
+==== Me encuentro buscando una solución =============
 OBJETIVO: 
     - Aprender a utilizar la librería Cloudscraper para páginas con protección de Cloudflare
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 JUNIO 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 
 import cloudscraper
@@ -10,7 +12,7 @@ import requests
 from bs4 import BeautifulSoup 
 
 headers = {
-    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.109 Safari/537.36"
 }
 
 

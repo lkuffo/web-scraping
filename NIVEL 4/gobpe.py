@@ -1,6 +1,6 @@
 """
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 import requests # pip install requests
 from lxml import html # pip install lxml

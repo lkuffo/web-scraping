@@ -3,7 +3,7 @@ OBJETIVO:
     - Aprender a realizar actualizacion de datos periodicamente a MongoDB desde Scrapy
     - Aprender sobre los queries UPSERT
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 9 ENERO 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 from twisted.internet import reactor
 from twisted.internet.task import LoopingCall
@@ -20,7 +20,7 @@ col = db['clima_scrapy']
 class ExtractorClima(Spider):
     name = "MiCrawlerDeClima"
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246',
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'CLOSESPIDER_PAGECOUNT': 20,
         'LOG_ENABLED': False
     }

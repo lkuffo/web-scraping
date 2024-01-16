@@ -7,7 +7,7 @@ OBJETIVO:
     - Aprender a utilizar la consola de NETWORKS de Google Chrome.
     - Aprender a procesar datos en formato JSON.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 import requests
 import pandas as pd

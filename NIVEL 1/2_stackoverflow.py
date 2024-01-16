@@ -3,14 +3,14 @@ OBJETIVO:
   - Extraer las preguntas de la pagina principal de Stackoverflow
   - Aprender a utilizar Beautiful Soup para parsear el arbol HTML
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 09 ENERO 2024
+ULTIMA VEZ EDITADO: 14 ENERO 2024
 """
 import requests
 from bs4 import BeautifulSoup # pip install beautifulsoup4
 
 # USER AGENT PARA PROTEGERNOS DE BANEOS
 headers = {
-    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 }
 
 # URL SEMILLA

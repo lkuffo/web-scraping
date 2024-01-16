@@ -3,7 +3,7 @@ OBJETIVO:
     - Aprender a automatizar la ejecucion de extracciones en Selenium y requests.
     - Aprender a utilizar la libreria Schedule para agendar/automatizar procesos por intervalos.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 9 ENERO 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 import schedule # pip install schedule
 import time

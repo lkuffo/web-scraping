@@ -2,20 +2,21 @@
 Objetivo: 
    - Extraer datos de un tag script
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 JUNIO 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 import requests
 import json
 from bs4 import BeautifulSoup 
 
 headers = {
-    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 }
 
 
 url = "https://footdistrict.com/air-jordan-1-mid-ss-ps-dx4378-400.html"
 
 resp = requests.get(url, headers=headers)
+print(resp)
 soup = BeautifulSoup(resp.text, features="lxml")
 
 # Las tallas cargan dinamicamente, e inicialmente se encuentran

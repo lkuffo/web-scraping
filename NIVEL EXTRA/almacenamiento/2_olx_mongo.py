@@ -2,7 +2,7 @@
 OBJETIVO:  
     - Almacenar datos de OLX en MongoDB
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 9 ENERO 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 from time import sleep
 from selenium import webdriver
@@ -23,7 +23,7 @@ col = db['anuncios_selenium']
 driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
 
 # Voy a la pagina que requiero
-driver.get('https://www.olx.com.ar')
+driver.get('https://www.olx.in')
 
 sleep(3)
 

@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a cargar informacion haciendo scrolling.
     - Aprender a manejar varios tabs abiertos al mismo tiempo en Selenium.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 12 SEPTIEMBRE 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 import random
 from time import sleep

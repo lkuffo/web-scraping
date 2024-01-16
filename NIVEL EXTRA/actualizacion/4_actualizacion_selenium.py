@@ -3,7 +3,7 @@ OBJETIVO:
     - Aprender a realizar actualizacion de datos periodicamente a MongoDB desde Selenium
     - Aprender sobre los queries UPSERT
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 9 ENERO 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 import schedule
 import time

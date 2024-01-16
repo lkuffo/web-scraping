@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales utilizando reglas
     - Aprender a utilizar MapCompose para realizar limpieza de datos
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 03 DICIEMBRE 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item

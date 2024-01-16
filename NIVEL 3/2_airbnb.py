@@ -3,7 +3,7 @@ OBJETIVO:
     - Selenium en 2023: Objeto service y ChromeDriverManager
     - Selenium en Headless mode (sin navegador)
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 27 JUL 2023
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 from time import sleep
 from selenium import webdriver
