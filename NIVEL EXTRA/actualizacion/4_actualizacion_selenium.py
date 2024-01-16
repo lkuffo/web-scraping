@@ -56,7 +56,8 @@ def extraer_datos():
 
 # Logica de automatizacion de extraccion
 schedule.every(5).minutes.do(extraer_datos) # Cada 5 minutos ejecuta la extraccion
-
+# Llamamos a la funcion fuera del lazo para una primera llamada instantanea
+extraer_datos()
 while True:
     schedule.run_pending()
     time.sleep(1)

@@ -51,7 +51,8 @@ def extraer_datos():
 
 # Logica de schedule (ver documentacion en recursos)
 schedule.every(1).minutes.do(extraer_datos) # Cada 1 minuto ejecutar la funcion extraer_datos
-
+# Llamamos a la funcion fuera del lazo para una primera llamada instantanea
+extraer_datos()
 # Reviso la cola de procesos cada segundo, para verificar si tengo que correr algun proceso pendiente
 while True:
     schedule.run_pending() # Correr procesos que esten pendientes de ser ejecutados.
