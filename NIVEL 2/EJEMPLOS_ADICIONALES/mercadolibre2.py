@@ -71,4 +71,4 @@ class MercadoLibreCrawler(CrawlSpider):
         yield item.load_item()
 
 # EJECUCION
-# scrapy runspider 2_mercadolibre.py -o mercado_libre.json -t json
+# scrapy runspider 2_mercadolibre.py -o mercado_libre.json

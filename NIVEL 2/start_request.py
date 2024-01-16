@@ -2,7 +2,7 @@
 OBJETIVO: 
     - Aprender a utilizar el metodo para parsear las URL semilla en ves de aplicar reglas directamente
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 26 DICIEMBRE 2020
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -23,7 +23,7 @@ class Hotel(Item):
 class TripAdvisor(CrawlSpider):
     name = 'hotelestripadvisor'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36'
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
 
     # Reduce el espectro de busqueda de URLs. No nos podemos salir de los dominios de esta lista
@@ -50,8 +50,8 @@ class TripAdvisor(CrawlSpider):
     # EL RESPONSE ES EL DE LA URL SEMILLA
     def parse_start_url(self, response): 
         sel = Selector(response)
-        hoteles = sel.xpath('.//div[@data-ttpn="Hotels_MainList"]')
-        print("Numero de Resultados", len(hoteles))
+        hoteles = sel.xpath('//div[contains(@id, "hotel-listing")]')
+        print("Numero de Resultados: ", len(hoteles))
 
     # Callback de la regla
     def parse_hotel(self, response):
@@ -59,15 +59,15 @@ class TripAdvisor(CrawlSpider):
 
         item = ItemLoader(Hotel(), sel)
         item.add_xpath('nombre', '//h1[@id="HEADING"]/text()')
-        item.add_xpath('score', './/div[@class="kVNDLtqL"]/span/text()',
+        item.add_xpath('score', '//div[@class="dGsKv P"]/span/text()',
                         MapCompose(self.quitarDolar))
         # Utilizo Map Compose con funciones anonimas
         # PARA INVESTIGAR: Que son las funciones anonimas en Python?
-        item.add_xpath('descripcion', '//div[@class="_2f_ruteS _1bona3Pu _2-hMril5"]/div/text()',
+        item.add_xpath('descripcion', '//div[@id="ABOUT_TAB"]//div[@class="fIrGe _T"]/text()', # //text() nos permite obtener el texto de todos los hijos
                        MapCompose(lambda i: i.replace('\n', '').replace('\r', '')))
         item.add_xpath('amenities',
                        '//div[contains(@data-test-target, "amenity_text")]/text()')
         yield item.load_item()
 
 # EJECUCION
-# scrapy runspider 1_tripadvisor.py -o tripadvisor.csv -t csv
+# scrapy runspider start_request.py -o tripadvisor.csv

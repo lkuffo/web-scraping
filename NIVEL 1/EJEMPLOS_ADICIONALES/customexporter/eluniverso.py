@@ -67,4 +67,4 @@ class ElUniversoSpider(Spider):
         #     yield item.load_item()
 
 # EJECUCION
-# scrapy runspider eluniverso.py -o resultados.csv -t csv
+# scrapy runspider eluniverso.py -o resultados.csv

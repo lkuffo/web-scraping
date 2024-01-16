@@ -91,8 +91,8 @@ class TripAdvisor(CrawlSpider):
         yield item.load_item()
 
 # EJECUCION
-# scrapy runspider 1_tripadvisor.py -o tripadvisor.csv -t csv
-# CORRIENDO SCRAPY SIN LA TERMINAL
+# scrapy runspider 1_tripadvisor.py -o tripadvisor.csv
+# CORRIENDO SCRAPY SIN LA TERMINAL
 process = CrawlerProcess({
     'FEED_FORMAT': 'json',
     'FEED_URI': 'datos_de_salida.json'

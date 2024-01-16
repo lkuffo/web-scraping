@@ -38,4 +38,4 @@ class HotelCrawler(Spider):
         yield item.load_item()
  
 # EJECUCION EN TERMINAL:
-# scrapy runspider 24_booking.py -o resultados.csv -t csv
+# scrapy runspider 24_booking.py -o resultados.csv

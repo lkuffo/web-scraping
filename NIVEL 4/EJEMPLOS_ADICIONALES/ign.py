@@ -62,4 +62,4 @@ class IGNCrawler(CrawlSpider):
 
 
 # EJECUCION
-# scrapy runspider ign.py -o ign.json -t json
+# scrapy runspider ign.py -o ign.json

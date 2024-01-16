@@ -55,4 +55,4 @@ class ChopoCrawler(CrawlSpider):
             yield item.load_item()
 
 
-# scrapy runspider 15_laboratorio.py -o ChopoScrapy01.csv -t csv
+# scrapy runspider 15_laboratorio.py -o ChopoScrapy01.csv
