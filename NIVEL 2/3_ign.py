@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales y horizontales utilizando reglas
     - Aprender a realizar extracciones con dos dimensiones de horizontalidad
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 23 ENERO 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -75,7 +75,7 @@ class IGNCrawler(CrawlSpider):
     def parse_review(self, response):
         item = ItemLoader(Review(), response)
         item.add_xpath('titulo', '//div[@class="article-headline"]//h1/text()')
-        item.add_xpath('calificacion', '//span[@class="side-wrapper side-wrapper hexagon-content"]/text()')
+        item.add_xpath('calificacion', '//span[@class="side-wrapper side-wrapper hexagon-content"]/div/text()')
         yield item.load_item()
 
     # VIDEO
@@ -89,7 +89,7 @@ class IGNCrawler(CrawlSpider):
     def parse_news(self, response):
         item = ItemLoader(Articulo(), response)
         item.add_xpath('titulo', '//h1/text()')
-        item.add_xpath('contenido', '//h3/text()')
+        item.add_xpath('contenido', '//div[@id="id_text"]//*/text()')
         yield item.load_item()
 
 # scrapy runspider 3_ign.py -o ign.json
