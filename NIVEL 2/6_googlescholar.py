@@ -86,4 +86,4 @@ class GoogleScholar(CrawlSpider):
             yield item.load_item()
 
 # EJECUCION
-# scrapy runspider 7_googlescholar.py -o articulos.csv
+# scrapy runspider 6_googlescholar.py -o articulos.csv

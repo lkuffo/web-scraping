@@ -33,6 +33,13 @@ sleep(2)
 driver.refresh() # Solucion de un bug extraño en Windows en donde los anuncios solo cargan al hacerle refresh a la página
 sleep(2) # Esperamos que cargue el boton
 
+# Cerramos dialogo de disclaimer (2024)
+try:
+    disclaimer_boton = driver.find_element(By.XPATH, '//button[@class="fc-button fc-cta-consent fc-primary-button"]')
+    disclaimer_boton.click()
+except:
+    pass
+
 # Busco el boton para cargar mas informacion
 boton = driver.find_element(By.XPATH, '//button[@data-aut-id="btnLoadMore"]')
 for i in range(3): # Voy a darle click en cargar mas 3 veces
@@ -43,7 +50,8 @@ for i in range(3): # Voy a darle click en cargar mas 3 veces
         sleep(random.uniform(8.0, 10.0))
         # busco el boton nuevamente para darle click en la siguiente iteracion
         boton = driver.find_element(By.XPATH, '//button[@data-aut-id="btnLoadMore"]')
-    except:
+    except Exception as e:
+        print(e)
         # si hay algun error, rompo el lazo. No me complico.
         break
 

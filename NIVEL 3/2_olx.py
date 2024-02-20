@@ -28,9 +28,16 @@ driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), op
 # Voy a la pagina que requiero
 driver.get('https://www.olx.in/')
 
+# Cerramos dialogo de disclaimer (2024)
+try:
+    sleep(1)
+    disclaimer_boton = driver.find_element(By.XPATH, '//button[@class="fc-button fc-cta-consent fc-primary-button"]')
+    disclaimer_boton.click()
+except:
+    pass
+
 
 for i in range(2): # Voy a darle click en cargar mas 2 veces
-    sleep(1) # Solucion a bug extrano en carga inicial 
     try:
         # Esperamos a que el boton se encuentre disponible a traves de una espera por eventos
         # Espero un maximo de 10 segundos, hasta que se encuentre el boton dentro del DOM
