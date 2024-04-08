@@ -3,7 +3,7 @@ OBJETIVO:
     - Utilizar mas de una url semilla
     - Aprender a utilizar Web Scraping en la Nube con Zyte
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 13 ENERO 2024
+ULTIMA VEZ EDITADO: 08 ABRIL 2024
 """
 from scrapy.item import Field, Item
 from scrapy.spiders import CrawlSpider, Rule
@@ -25,7 +25,8 @@ class Urbaniape(CrawlSpider):
         'CLOSESPIDER_ITEMCOUNT': 5,
         'DOWNLOADER_MIDDLEWARES': {'scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware': 610},
         'ZYTE_SMARTPROXY_ENABLED': True,
-        'ZYTE_SMARTPROXY_APIKEY': 'SU_API_KEY'
+        'ZYTE_SMARTPROXY_URL': 'http://api.zyte.com:8011', # Migracion a Zyte API (Abril 2024)
+        'ZYTE_SMARTPROXY_APIKEY': '<SU_API_KEY>'
     }
 
     """
@@ -56,9 +57,9 @@ class Urbaniape(CrawlSpider):
         sel = Selector(response)
         item = ItemLoader(Departamento(),sel)
  
-        item.add_xpath('nombre','//div[@class="development-title-container"]//h1/text()',
+        item.add_xpath('nombre','//h1/text()',
                        MapCompose(self.limpiar_texto))
-        item.add_xpath('direccion','//div[@class="development-title-container"]//p/text()',
+        item.add_xpath('direccion','//section[@id="map-section"]/div[@class="section-location-property"]/h4/text()',
                        MapCompose(self.limpiar_texto))
  
         yield item.load_item()
