@@ -58,7 +58,7 @@ class IGNCrawler(CrawlSpider):
         Rule(
             LinkExtractor( # VERTICALIDAD DE REVIEWS
                 allow=r'/review/',
-                deny=r'utm_source=recirc', # Parametro deny para evitar URLs repetidas que en este caso especial de IGN son por los parametros
+                deny=r'utm_source=recirc', # Parametro deny para evitar URLs repetidas que en este caso especial de IGN son por los parametros (https://www.udemy.com/instructor/communication/qa/15832180/detail?course=2861742)
             ), follow=True, callback='parse_review'),
         Rule(
             LinkExtractor( # VERTICALIDAD DE VIDEOS
