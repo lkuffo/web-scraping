@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales y horizontales utilizando reglas
     - Aprender a realizar extracciones con dos dimensiones de horizontalidad
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 23 ENERO 2024
+ULTIMA VEZ EDITADO: 12 ABRIL 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -57,15 +57,18 @@ class IGNCrawler(CrawlSpider):
         # Cada una tiene su propia funcion parse que extraera los items dependiendo de la estructura del HTML donde esta cada tipo de item
         Rule(
             LinkExtractor( # VERTICALIDAD DE REVIEWS
-                allow=r'/review/'
+                allow=r'/review/',
+                deny=r'utm_source=recirc', # Parametro deny para evitar URLs repetidas que en este caso especial de IGN son por los parametros
             ), follow=True, callback='parse_review'),
         Rule(
             LinkExtractor( # VERTICALIDAD DE VIDEOS
-                allow=r'/video/'
+                allow=r'/video/',
+                deny=r'utm_source=recirc',
             ), follow=True, callback='parse_video'),
         Rule(
             LinkExtractor(
-                allow=r'/news/' # VERTICALIDAD DE ARTICULOS
+                allow=r'/news/', # VERTICALIDAD DE ARTICULOS
+                deny=r'utm_source=recirc',
             ), follow=True, callback='parse_news'),
     )
 
