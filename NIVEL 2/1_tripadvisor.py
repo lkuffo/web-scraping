@@ -4,16 +4,16 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales utilizando reglas
     - Aprender a utilizar MapCompose para realizar limpieza de datos
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 17 ABRIL 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
-from scrapy.loader.processors import MapCompose
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 
+from itemloaders.processors import MapCompose  # 2024: Nueva forma de importar MapCompose
 
 class Hotel(Item):
     nombre = Field()
@@ -55,11 +55,11 @@ class TripAdvisor(CrawlSpider):
 
         item = ItemLoader(Hotel(), sel)
         item.add_xpath('nombre', '//h1[@id="HEADING"]/text()')
-        item.add_xpath('score', '//div[@class="dGsKv P"]/span/text()',
-                        MapCompose(self.quitarDolar))
-        # Utilizo Map Compose con funciones anonimas
-        # PARA INVESTIGAR: Que son las funciones anonimas en Python?
-        item.add_xpath('descripcion', '//div[@id="ABOUT_TAB"]//div[@class="fIrGe _T"]/text()', # //text() nos permite obtener el texto de todos los hijos
+        item.add_xpath('score', '//span[@class="kJyXc P"]/text()',
+                        MapCompose(self.quitarDolar)) # Debido a que ahora estamos obteniendo el score, no es necesario este post-procesamiento
+        # Es posible utilizar Map Compose con funciones anonimas
+        # PARA INVESTIGAR: Que son las funciones anonimas (lambda) en Python?
+        item.add_xpath('descripcion', '//div[@id="ABOUT_TAB"]//div[@class="fIrGe _T"]//text()', # //text() nos permite obtener el texto de todos los hijos
                        MapCompose(lambda i: i.replace('\n', '').replace('\r', '')))
         item.add_xpath('amenities',
                        '//div[contains(@data-test-target, "amenity_text")]/text()')

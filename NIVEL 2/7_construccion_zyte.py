@@ -8,10 +8,11 @@ ULTIMA VEZ EDITADO: 08 ABRIL 2024
 from scrapy.item import Field, Item
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
-from scrapy.loader.processors import MapCompose
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 from bs4 import BeautifulSoup
+
+from itemloaders.processors import MapCompose
  
 class Departamento(Item):
     nombre = Field()

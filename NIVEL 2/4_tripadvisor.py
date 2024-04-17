@@ -5,16 +5,16 @@ OBJETIVO:
     - Aprender a reducir el espectro de busqueda para filtrar URLs en las reglas
     - Evitar obtener URLs repetidas
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 17 ABRIL 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
-from scrapy.loader.processors import MapCompose
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 
+from itemloaders.processors import MapCompose
 
 class Opinion(Item):
     titulo = Field()

@@ -14,7 +14,6 @@ from scrapy.item import Item
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
 from scrapy.linkextractors import LinkExtractor
-from scrapy.loader.processors import MapCompose
 from scrapy.loader import ItemLoader
  
 class Farmacia(Item):

@@ -8,7 +8,6 @@ ULTIMA VEZ EDITADO: 09 ENERO 2023
 from scrapy.item import Field, Item
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
-from scrapy.loader.processors import MapCompose
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 from bs4 import BeautifulSoup

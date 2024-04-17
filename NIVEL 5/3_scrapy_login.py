@@ -2,15 +2,11 @@
 OBJETIVO:  
     - Inicio de sesion a partir de formulario con scrapy
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 16 ABRIL 2024
 """
-from scrapy.item import Field
-from scrapy.item import Item
+
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
-from scrapy.loader.processors import MapCompose
-from scrapy.loader import ItemLoader
-from bs4 import BeautifulSoup
 from scrapy.crawler import CrawlerProcess
 import scrapy
 
