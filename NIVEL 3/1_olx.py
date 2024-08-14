@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones que requieran una accion de click para cargar datos.
     - Introducirnos a la logica de Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 15 ENERO 2024
+ULTIMA VEZ EDITADO: 14 AGOSTO 2024
 """
 
 #####
@@ -21,17 +21,17 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # Asi podemos setear el user-agent en selenium
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36")
+# Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
+opts.add_argument("--disable-search-engine-choice-screen")
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 
 # Voy a la pagina que quiero
 driver.get('https://www.olx.in/cars_c84')
-sleep(2)
-driver.refresh() # Solucion de un bug extraño en Windows en donde los anuncios solo cargan al hacerle refresh a la página
-sleep(2) # Esperamos que cargue el boton
+sleep(200)
 
 # Cerramos dialogo de disclaimer (2024)
 try:
@@ -47,7 +47,7 @@ for i in range(3): # Voy a darle click en cargar mas 3 veces
         # le doy click
         boton.click()
         # espero que cargue la informacion dinamica
-        sleep(random.uniform(8.0, 10.0))
+        sleep(random.uniform(10.0, 15.0))
         # busco el boton nuevamente para darle click en la siguiente iteracion
         boton = driver.find_element(By.XPATH, '//button[@data-aut-id="btnLoadMore"]')
     except Exception as e:

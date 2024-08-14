@@ -20,6 +20,8 @@ from webdriver_manager.chrome import ChromeDriverManager # pip install webdriver
 # User agent
 opts = Options()
 opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
+# Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
+opts.add_argument("--disable-search-engine-choice-screen")
 
 # Funcion para obtener el Script de Scrolling dependiendo de cuantos scrollings ya he hecho
 # Es un approach mas inteligente que el utilizado en el video. En donde, mientras mas escrolls llevo dando, mas pixeles voy bajando.

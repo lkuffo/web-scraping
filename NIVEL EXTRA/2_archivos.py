@@ -2,7 +2,7 @@
 OBJETIVO: 
     - Extraer archivos utilizando Web Scraping
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 10 ENERO 2024
+ULTIMA VEZ EDITADO: 14 AGOSTO 2024
 """
 import requests
 from bs4 import BeautifulSoup
@@ -20,6 +20,9 @@ for descarga in descargas:
 print(urls)
 i = 0
 for url in urls: # Por cada url de los archivos que quiero descargar
+    # Ver: https://www.udemy.com/instructor/communication/qa/17962324/detail?course=2861742
+    url = url.replace("file-examples.com/wp-content/storage/", "file-examples.com/storage/fe519944ff66ba53b99c446/")
+    
     r = requests.get(url, allow_redirects=True)
     nombre_archivo = './archivos/' + url.split('/')[-1]
     output = open(nombre_archivo, 'wb')

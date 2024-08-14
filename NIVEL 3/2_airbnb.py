@@ -15,6 +15,8 @@ from webdriver_manager.chrome import ChromeDriverManager # pip install webdriver
 opts = Options()
 opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
 #opts.add_argument("--headless") # Headless Mode
+# Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
+opts.add_argument("--disable-search-engine-choice-screen")
 
 # Ahora podemos utilizar Selenium sin configurar el chromedriver (Julio 2023, Chrome > 115)
 # Aunque en Mac esto tiene problemas
