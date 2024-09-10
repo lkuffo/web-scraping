@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a cargar informacion haciendo scrolling.
     - Aprender a manejar varios tabs abiertos al mismo tiempo en Selenium.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 10 SEPTIEMBRE 2024
 """
 import random
 from time import sleep
@@ -58,7 +58,6 @@ while (SCROLLS != 2): # Decido que voy a hacer 3 scrollings
   sleep(random.uniform(1, 2)) # Entre cada scrolling espero un tiempo
   SCROLLS += 1
 
-
 # Una vez que ha terminado el scrollings...
 # Obtengo la Lista de reviews del restaurante
 restaurantsReviews = driver.find_elements(By.XPATH, '//div[@data-review-id and not(@aria-label)]')
@@ -70,10 +69,13 @@ for review in restaurantsReviews:
   # la búsqueda por el usuario sea relativa al review actual
   userLink = review.find_element(By.XPATH, ".//div[contains(@class, 'WNx')]//button")
 
+  print(userLink)
+
   try:
 
     userLink.click() # Damos click en el nombre de display del usuario para abrir su perfil. Esto se abre en un nuevo tab.
 
+    sleep(2) # septiembere 2024: tenemos que anadir una espera
     # Movemos el contexto del driver al tab en la segunda posicion. Si no hacemos esto, no podremos acceder a los elementos del nuevo tab.
     driver.switch_to.window(driver.window_handles[1])
 

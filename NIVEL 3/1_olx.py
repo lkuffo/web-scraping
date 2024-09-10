@@ -31,7 +31,7 @@ driver = webdriver.Chrome(options=opts)
 
 # Voy a la pagina que quiero
 driver.get('https://www.olx.in/cars_c84')
-sleep(200)
+sleep(4)
 
 # Cerramos dialogo de disclaimer (2024)
 try:

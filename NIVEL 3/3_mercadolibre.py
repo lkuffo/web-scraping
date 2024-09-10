@@ -7,7 +7,7 @@ OBJETIVO:
     - Aprender a manejar el "retroceso" del navegador
     - Aprender a definir user_agents en Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 15 ENERO 2024
+ULTIMA VEZ EDITADO: 10 SEPTIEMBRE 2024
 """
 from time import sleep
 from selenium import webdriver
@@ -25,8 +25,8 @@ opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap
 opts.add_argument("--disable-search-engine-choice-screen")
 driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
 
-#URL SEMILLA
-driver.get('https://listado.mercadolibre.com.ec/herramientas-vehiculos/')
+#URL SEMILLA (cambio septiembere 2024)
+driver.get('https://listado.mercadolibre.com.ec/arrancador-de-baterias')
 
 
 # LOGICA DE MAXIMA PAGINACION CON LAZO WHILE
@@ -47,7 +47,7 @@ except Exception as e:
 # Mientras la pagina en la que me encuentre, sea menor que la maxima pagina que voy a sacar... sigo ejecutando...
 while PAGINACION_MAX > PAGINACION_ACTUAL:
 
-  links_productos = driver.find_elements(By.XPATH, '//a[@class="ui-search-item__group__element ui-search-link__title-card ui-search-link"]')
+  links_productos = driver.find_elements(By.XPATH, '//h2[@class="poly-box poly-component__title"]/a')
   links_de_la_pagina = []
   for a_link in links_productos:
     links_de_la_pagina.append(a_link.get_attribute("href"))
