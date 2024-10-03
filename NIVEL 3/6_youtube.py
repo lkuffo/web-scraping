@@ -3,7 +3,7 @@ OBJETIVO:
     - Hacer una extracción compleja en Selenium
     - Hacer una extracción de datos de una red social
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 13 ENERO 2024
+ULTIMA VEZ EDITADO: 03 OCTUBRE 2024
 """
 from time import sleep
 from selenium import webdriver
@@ -62,7 +62,7 @@ for url in urls_videos:
     num_comentarios_totales = int(num_comentarios_totales) * 0.90
     print('Comentarios totales:', num_comentarios_totales)
 
-    comentarios_cargados = len(driver.find_elements(By.XPATH, '//yt-formatted-string[@id="content-text"]'))
+    comentarios_cargados = len(driver.find_elements(By.XPATH, '//yt-attributed-string[@id="content-text"]'))
     # Cada vez que hago scrolling voy a comparar si es que ya se encuentran cargados
     # todos los comentarios que youtube dice que hay 
     n_scrolls = 0
@@ -71,10 +71,11 @@ for url in urls_videos:
         driver.execute_script(obtener_script_scrolling(n_scrolls))
         n_scrolls += 1
         sleep(2)
-        comentarios_cargados = len(driver.find_elements(By.XPATH, '//yt-formatted-string[@id="content-text"]'))        
+        comentarios_cargados = len(driver.find_elements(By.XPATH, '//yt-attributed-string[@id="content-text"]'))   
+        print('Comentarios cargados', comentarios_cargados)     
 
 
-    comentarios = driver.find_elements(By.XPATH, '//yt-formatted-string[@id="content-text"]')
+    comentarios = driver.find_elements(By.XPATH, '//yt-attributed-string[@id="content-text"]')
     for comentario in comentarios:
         texto_comentario = comentario.text
         print(texto_comentario)

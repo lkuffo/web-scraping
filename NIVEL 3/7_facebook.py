@@ -3,7 +3,7 @@ OBJETIVO:
     - Hacer una extracción compleja en Selenium
     - Hacer una extracción de datos de una red social
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 ENERO 2023
+ULTIMA VEZ EDITADO: 03 OCTUBRE 2024
 """
 from time import sleep
 from selenium import webdriver
@@ -59,23 +59,22 @@ sleep(0.5)
 #   3. Si tuvieramos el número de posts en algún lado en la página; pudiéramos hacer scroll hasta estar cercanos a ese número
 #      esto lo podriamos hacer por ejemplo en Youtube
 n_scrolls = 0
-max_scrolls = 50
+max_scrolls = 10
 max_posts = 10
-posts = driver.find_elements(By.XPATH, './/div[@aria-describedby and @role="article"]')
+posts = driver.find_elements(By.XPATH, '//div[@aria-describedby and @aria-labelledby]')
 while len(posts) < max_posts and n_scrolls < max_scrolls:
     hacer_scrolling_suavizado(driver, n_scrolls)
-    posts = driver.find_elements(By.XPATH, './/div[@aria-describedby and @role="article"]')
+    posts = driver.find_elements(By.XPATH, '//div[@aria-describedby and @aria-labelledby]')
     n_scrolls += 1
-    print('Termino scrolling: durmiendo')
-    sleep(2)
+    print('Termino scrolling: durmiendo', len(posts))
 
-posts = driver.find_elements(By.XPATH, './/div[@aria-describedby and @role="article"]')
+posts = driver.find_elements(By.XPATH, '//div[@aria-describedby and @aria-labelledby]')
 for post in posts:
     # Indexar en el primer elemento del resultado [1] es necesario debido a que
     # puede haber un subpost al post
     texto_post = post.find_element(By.XPATH, '(.//div[@data-ad-comet-preview="message"])[1]').text
 
-    url_post = post.find_element(By.XPATH, './/span[@id]//a[@aria-label]').get_attribute('href')
+    url_post = post.find_element(By.XPATH, './/span[@dir]//div[@id]//a').get_attribute('href')
 
     # Este XPATH es unico dentro del post
     reacciones = post.find_element(By.XPATH, './/span[@class="x1e558r4"]').text

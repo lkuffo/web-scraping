@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones que requieran una accion de click para cargar datos.
     - Introducirnos a la logica de Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 AGOSTO 2024
+ULTIMA VEZ EDITADO: 03 OCTUBRE 2024
 """
 
 #####
@@ -40,9 +40,11 @@ try:
 except:
     pass
 
+sleep(10)
+
 # Busco el boton para cargar mas informacion
 boton = driver.find_element(By.XPATH, '//button[@data-aut-id="btnLoadMore"]')
-for i in range(3): # Voy a darle click en cargar mas 3 veces
+for i in range(1): # Voy a darle click en cargar mas 3 veces
     try:
         # le doy click
         boton.click()
@@ -57,8 +59,7 @@ for i in range(3): # Voy a darle click en cargar mas 3 veces
 
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-autos = driver.find_elements(By.XPATH, '//li[@data-aut-id="itemBox"]')
-
+autos = driver.find_elements(By.XPATH, '//li[@data-aut-id="itemBox2"]')
 
 # Recorro cada uno de los anuncios que he encontrado
 for auto in autos:
@@ -67,7 +68,7 @@ for auto in autos:
         precio = auto.find_element(By.XPATH, './/span[@data-aut-id="itemPrice"]').text
         print (precio)
         # Por cada anuncio hallo la descripcion
-        descripcion = auto.find_element(By.XPATH, './/div[@data-aut-id="itemTitle"]').text
+        descripcion = auto.find_element(By.XPATH, './/span[@data-aut-id="itemTitle"]').text
         print (descripcion)
     except Exception as e:
         print ('Anuncio carece de precio o descripcion')

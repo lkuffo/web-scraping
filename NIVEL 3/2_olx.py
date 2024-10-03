@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar la espera por eventos de Selenium.
     - Aprender a optimizar el tiempo de ejecucion de nuestras extracciones por Selenium de manera inteligente
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 10 SEPTIEMBRE 2024
+ULTIMA VEZ EDITADO: 03 OCTUBRE 2024
 """
 import random
 from selenium import webdriver
@@ -40,19 +40,19 @@ except:
     pass
 
 
-for i in range(2): # Voy a darle click en cargar mas 2 veces
+for i in range(1): # Voy a darle click en cargar mas 2 veces
     try:
         # Esperamos a que el boton se encuentre disponible a traves de una espera por eventos
         # Espero un maximo de 10 segundos, hasta que se encuentre el boton dentro del DOM
-        boton = WebDriverWait(driver, 15).until(
+        boton = WebDriverWait(driver, 10).until(
           EC.presence_of_element_located((By.XPATH, '//button[@data-aut-id="btnLoadMore"]'))
         )
         # le doy click al boton que espere
         boton.click()
         nAnuncios = 20 + (( i + 1 ) * 20 ) # 20 anuncios de carga inicial, y luego 20 anuncios por cada click que he dado
         # Espero hasta 10 segundos a que toda la informacion del ultimo anuncio este cargada
-        WebDriverWait(driver, 15).until(
-          EC.presence_of_element_located((By.XPATH, '//li[@data-aut-id="itemBox"][' + str(nAnuncios) + ']'))
+        WebDriverWait(driver, 10).until(
+          EC.presence_of_element_located((By.XPATH, '//li[@data-aut-id="itemBox3"][' + str(nAnuncios) + ']'))
         )
         # Luego de que se hallan todos los elementos cargados, seguimos la ejecucion
     except Exception as e:
@@ -62,7 +62,7 @@ for i in range(2): # Voy a darle click en cargar mas 2 veces
 
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-autos = driver.find_elements('xpath', '//li[@data-aut-id="itemBox"]')
+autos = driver.find_elements('xpath', '//li[@data-aut-id="itemBox3"]')
 
 # Recorro cada uno de los anuncios que he encontrado
 for auto in autos:
