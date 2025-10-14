@@ -1,15 +1,19 @@
 """	
+===========================================
+============= CLASE OBSOLETA ==============
+====== AHORA UTILIZA CARGA DINAMICA =======
+====== QUEDA COMO CLASE DEMOSTRATIVA ======
+===========================================
 OBJETIVO: 	
     - Aprender a utilizar Link Extractor de una manera mas sofisticada	
 CREADO POR: LEONARDO KUFFO	
-ULTIMA VEZ EDITADO: 2 marzo 2021
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
 from scrapy.linkextractors import LinkExtractor
-from scrapy.loader.processors import MapCompose
 from scrapy.loader import ItemLoader
  
 class Farmacia(Item):
@@ -49,4 +53,4 @@ class CruzVerdeSpider(CrawlSpider):
             yield item.load_item()
 
 # EJECUCION	
-# scrapy runspider 2_mercadolibre.py -o mercado_libre.json -t json 
+# scrapy runspider 2_mercadolibre.py -o mercado_libre.json

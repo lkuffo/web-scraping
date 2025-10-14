@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar la espera por eventos de Selenium.
     - Aprender a optimizar el tiempo de ejecucion de nuestras extracciones por Selenium de manera inteligente
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ABRIL 2020
+ULTIMA VEZ EDITADO: 03 OCTUBRE 2024
 """
 import random
 from selenium import webdriver
@@ -15,13 +15,32 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome('./chromedriver') # REMPLAZA AQUI EL NOMBRE DE TU CHROME DRIVER
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
+opts = Options()
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
+# Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
+opts.add_argument("--disable-search-engine-choice-screen")
+
+# Instancio el driver de selenium que va a controlar el navegador
+# A partir de este objeto voy a realizar el web scraping e interacciones
+driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
 
 # Voy a la pagina que requiero
-driver.get('https://www.olx.com.ec')
+driver.get('https://www.olx.in/')
+
+# Cerramos dialogo de disclaimer (2024)
+try:
+    sleep(4)
+    disclaimer_boton = driver.find_element(By.XPATH, '//button[@class="fc-button fc-cta-consent fc-primary-button"]')
+    disclaimer_boton.click()
+except:
+    pass
 
 
-for i in range(3): # Voy a darle click en cargar mas 3 veces
+for i in range(1): # Voy a darle click en cargar mas 2 veces
     try:
         # Esperamos a que el boton se encuentre disponible a traves de una espera por eventos
         # Espero un maximo de 10 segundos, hasta que se encuentre el boton dentro del DOM
@@ -33,7 +52,7 @@ for i in range(3): # Voy a darle click en cargar mas 3 veces
         nAnuncios = 20 + (( i + 1 ) * 20 ) # 20 anuncios de carga inicial, y luego 20 anuncios por cada click que he dado
         # Espero hasta 10 segundos a que toda la informacion del ultimo anuncio este cargada
         WebDriverWait(driver, 10).until(
-          EC.presence_of_element_located((By.XPATH, '//li[@data-aut-id="itemBox"][' + str(nAnuncios) + ']'))
+          EC.presence_of_element_located((By.XPATH, '//li[@data-aut-id="itemBox3"][' + str(nAnuncios) + ']'))
         )
         # Luego de que se hallan todos los elementos cargados, seguimos la ejecucion
     except Exception as e:
@@ -43,18 +62,21 @@ for i in range(3): # Voy a darle click en cargar mas 3 veces
 
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-autos = driver.find_elements_by_xpath('//li[@data-aut-id="itemBox"]')
+autos = driver.find_elements('xpath', '//li[@data-aut-id="itemBox3"]')
 
 # Recorro cada uno de los anuncios que he encontrado
 for auto in autos:
     # Por cada anuncio hallo el precio, que en esta pagina principal, rara vez suele no estar, por eso hacemos esta validacion.
     try:
-      precio = auto.find_element_by_xpath('.//span[@data-aut-id="itemPrice"]').text
+      precio = auto.find_element('xpath', './/span[@data-aut-id="itemPrice"]').text
     except:
       precio = 'NO DISPONIBLE'
     print (precio)
     # Por cada anuncio hallo la descripcion
-    descripcion = auto.find_element_by_xpath('.//span[@data-aut-id="itemTitle"]').text
+    try:
+      descripcion = auto.find_element('xpath', './/span[@data-aut-id="itemTitle"]').text
+    except:
+      descripcion = 'NO DISPONIBLE'
     print (descripcion)
 
 

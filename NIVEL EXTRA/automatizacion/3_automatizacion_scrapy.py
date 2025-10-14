@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar LoopingCalls en Scrapy.
     - Utilizar Scrapy de una manera simplificada.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 2 SEPTIEMBRE 2020
+ULTIMA VEZ EDITADO: 16 ENERO 2024
 """
 
 from twisted.internet import reactor # viene instalado con scrapy
@@ -17,9 +17,9 @@ from scrapy.spiders import Spider
 class ExtractorClima(Spider):
     name = "MiCrawlerDeClima"
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36',
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'CLOSESPIDER_PAGECOUNT': 20,
-        'LOG_ENABLED': True # Elimina los miles de logs que salen al ejecutar Scrapy en terminal
+        'LOG_ENABLED': True # False elimina los miles de logs que salen al ejecutar Scrapy en terminal
     }
 
     # Start URLs puede ser un arreglo de muchas URLs. Al no haber reglas, cada una de
@@ -33,12 +33,12 @@ class ExtractorClima(Spider):
 
     def parse(self, response):
         ciudad = response.xpath('//h1/text()').get()
-        current = response.xpath('//div[contains(@class, "cur-con-weather-card__panel")]//div[@class="temp"]/text()').get()
-        real_feel = response.xpath('//div[contains(@class, "cur-con-weather-card__panel")]//div[@class="real-feel"]/text()').get()
+        current = response.xpath('//div[contains(@class, "cur-con-weather-card__body")]//div[@class="temp"]/text()').get()
+        real_feel = response.xpath('//div[contains(@class, "cur-con-weather-card__body")]//div[@class="real-feel"]/text()').get()
 
         # Limpieza de datos
         ciudad = ciudad.replace('\n', '').replace('\r', '').strip()
-        current = current.replace('°', '').replace('\n', '').replace('\r', '').strip()
+        current = current.replace('C', '').replace('°', '').replace('\n', '').replace('\r', '').strip()
         real_feel = real_feel.replace('RealFeel®', '').replace('°', '').replace('\n', '').replace('\r', '').strip()
         
         # Guardado de datos en un archivo

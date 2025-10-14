@@ -1,5 +1,0 @@
-[
-{"inmobiliaria": ["Immoac"], "categoria": [" Casa"], "operacion": ["VENTA"], "precio": "", "parroquia": ["  - ORDINO"], "referencia": ["ADCO370"], "hab": [5], "banos": [4], "parking": ["2"], "superficie": [464]},
-{"inmobiliaria": ["Immoac"], "categoria": [" Piso"], "operacion": ["ALQUILER"], "precio": 800.0, "parroquia": [" Fontaneda - SANT JULIA DE LORIA"], "referencia": ["ADCO7733"], "hab": [1], "banos": [1], "superficie": [70]},
-{"inmobiliaria": ["Immoac"], "categoria": [" Piso"], "operacion": ["VENTA"], "precio": "95 000", "parroquia": [" Bordes d Envalira - CANILLO"], "referencia": ["ADCO6582"], "hab": [2], "banos": [2], "superficie": [65]}
-]

@@ -5,13 +5,11 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales y horizontales utilizando reglas
     - Aprender a realizar extracciones con dos dimensiones de horizontalidad
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 23 ABRIL 2020
+ULTIMA VEZ EDITADO: 12 ABRIL 2024
 """
 from scrapy.item import Field
 from scrapy.item import Item
 from scrapy.spiders import CrawlSpider, Rule
-from scrapy.selector import Selector
-from scrapy.loader.processors import MapCompose
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 
@@ -34,11 +32,13 @@ class IGNCrawler(CrawlSpider):
     name = 'ign'
     custom_settings = {
       'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/71.0.3578.80 Chrome/71.0.3578.80 Safari/537.36',
-      'CLOSESPIDER_PAGECOUNT': 100 # Un poco alto
+      'CLOSESPIDER_PAGECOUNT': 100, # Un poco alto
+      'FEED_EXPORT_FIELDS': ['titulo', 'calificacion', 'fecha_de_publicacion', 'contenido'],
+      'FEED_EXPORT_ENCODING': 'utf-8' # Para que se muestren bien los caracteres especiales (ej. acentos)
     }
 
     allowed_domains = ['latam.ign.com']
-    start_urls = ['https://latam.ign.com/se/?model=article&q=ps4']
+    start_urls = ['https://latam.ign.com/se/?model=article&q=ps5']
 
     download_delay = 1
 
@@ -55,15 +55,18 @@ class IGNCrawler(CrawlSpider):
         # Cada una tiene su propia funcion parse que extraera los items dependiendo de la estructura del HTML donde esta cada tipo de item
         Rule(
             LinkExtractor( # VERTICALIDAD DE REVIEWS
-                allow=r'/review/'
+                allow=r'/review/',
+                deny=r'utm_source=recirc', # Parametro deny para evitar URLs repetidas que en este caso especial de IGN son por los parametros (https://www.udemy.com/instructor/communication/qa/15832180/detail?course=2861742)
             ), follow=True, callback='parse_review'),
         Rule(
             LinkExtractor( # VERTICALIDAD DE VIDEOS
-                allow=r'/video/'
+                allow=r'/video/',
+                deny=r'utm_source=recirc',
             ), follow=True, callback='parse_video'),
         Rule(
             LinkExtractor(
-                allow=r'/news/' # VERTICALIDAD DE ARTICULOS
+                allow=r'/news/', # VERTICALIDAD DE ARTICULOS
+                deny=r'utm_source=recirc',
             ), follow=True, callback='parse_news'),
     )
 
@@ -72,8 +75,8 @@ class IGNCrawler(CrawlSpider):
     # REVIEW
     def parse_review(self, response):
         item = ItemLoader(Review(), response)
-        item.add_xpath('titulo', '//h1/text()')
-        item.add_xpath('calificacion', '//span[@class="side-wrapper side-wrapper hexagon-content"]/text()')
+        item.add_xpath('titulo', '//div[@class="article-headline"]//h1/text()')
+        item.add_xpath('calificacion', '//span[@class="side-wrapper side-wrapper hexagon-content"]/div/text()')
         yield item.load_item()
 
     # VIDEO
@@ -90,4 +93,4 @@ class IGNCrawler(CrawlSpider):
         item.add_xpath('contenido', '//div[@id="id_text"]//*/text()')
         yield item.load_item()
 
-# scrapy runspider 3_ign.py -o ign.json -t json
+# scrapy runspider 3_ign.py -o ign.json

@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a descargar imagenes de la web a nuestra pc.
     - Aprender una segunda manera para hacer scrolling de una pagina web.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 26 ABRIL 2020
+ULTIMA VEZ EDITADO: 02 ENERO 2024
 """
 import requests
 from PIL import Image # pip install Pillow
@@ -14,13 +14,27 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+
+headers = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+}
+
+opts = Options()
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
+# Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
+opts.add_argument("--disable-search-engine-choice-screen")
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome('./chromedriver.exe')
+driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
 
 # Voy a la pagina que requiero
-driver.get('https://www.olx.com.ec')
+driver.get('https://www.olx.in')
+
+sleep(3) # Soluciona bug extrano en OLX
 
 for i in range(1): # Voy a darle click en cargar mas 3 veces
     try:
@@ -52,26 +66,28 @@ sleep(5)
 
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-anuncios = driver.find_elements_by_xpath('//li[@data-aut-id="itemBox"]')
+anuncios = driver.find_elements('xpath', '//li[@data-aut-id="itemBox"]')
 
 i = 0
 # Recorro cada uno de los anuncios que he encontrado
 for anuncio in anuncios:
-    print(anuncio.get_attribute('innerHTML'))
+    # print(anuncio.get_attribute('innerHTML'))
     # Por cada anuncio hallo el preico
-    precio = anuncio.find_element_by_xpath('.//span[@data-aut-id="itemPrice"]').text
+    precio = anuncio.find_element('xpath', './/span[@data-aut-id="itemPrice"]').text
     print (precio)
     # Por cada anuncio hallo la descripcion
-    descripcion = anuncio.find_element_by_xpath('.//span[@data-aut-id="itemTitle"]').text
+    descripcion = anuncio.find_element('xpath', './/span[@data-aut-id="itemTitle"]').text
     print (descripcion)
 
     try:
-        url = anuncio.find_element_by_xpath('.//figure[@data-aut-id="itemImage"]/img')
+        url = anuncio.find_element('xpath', './/figure[@data-aut-id="itemImage"]/img')
         # obtengo el URl de la imagen del anuncio
         url = url.get_attribute('src')
         
         # con requests, hago el requerimiento a la URL de la imagen
-        image_content = requests.get(url).content
+        # Es importante aqui no olvidar los principios que hemos aprendido en el curso,
+        # y pasar headers con un user-agent
+        image_content = requests.get(url, headers=headers).content
 
         # PROCESAMIENTO DE LA IMAGEN
         image_file = io.BytesIO(image_content)
