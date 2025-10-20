@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a descargar imagenes de la web a nuestra pc.
     - Aprender una segunda manera para hacer scrolling de una pagina web.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 02 ENERO 2024
+ULTIMA VEZ EDITADO: 20 OCTUBRE 2025
 """
 import requests
 from PIL import Image # pip install Pillow
@@ -15,21 +15,20 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
 headers = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
 }
 
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 
 # Voy a la pagina que requiero
 driver.get('https://www.olx.in')
@@ -66,7 +65,7 @@ sleep(5)
 
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-anuncios = driver.find_elements('xpath', '//li[@data-aut-id="itemBox"]')
+anuncios = driver.find_elements('xpath', '//li[@data-aut-id="itemBox3"]')
 
 i = 0
 # Recorro cada uno de los anuncios que he encontrado

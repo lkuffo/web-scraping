@@ -7,7 +7,7 @@ OBJETIVO:
     - Aprender a manejar el "retroceso" del navegador
     - Aprender a definir user_agents en Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 10 SEPTIEMBRE 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 from time import sleep
 from selenium import webdriver
@@ -16,17 +16,16 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 # Definimos el User Agent en Selenium utilizando la clase Options
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
-driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 
-#URL SEMILLA (cambio septiembere 2024)
-driver.get('https://listado.mercadolibre.com.ec/arrancador-de-baterias')
+#URL SEMILLA (cambio octubre 2025)
+driver.get('https://listado.mercadolibre.com.ec/celulares')
 
 
 # LOGICA DE MAXIMA PAGINACION CON LAZO WHILE
@@ -47,7 +46,7 @@ except Exception as e:
 # Mientras la pagina en la que me encuentre, sea menor que la maxima pagina que voy a sacar... sigo ejecutando...
 while PAGINACION_MAX > PAGINACION_ACTUAL:
 
-  links_productos = driver.find_elements(By.XPATH, '//h2[@class="poly-box poly-component__title"]/a')
+  links_productos = driver.find_elements(By.XPATH, '//h3[@class="poly-component__title-wrapper"]/a')
   links_de_la_pagina = []
   for a_link in links_productos:
     links_de_la_pagina.append(a_link.get_attribute("href"))

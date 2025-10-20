@@ -12,15 +12,14 @@ from time import sleep
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 opts = Options()
 opts.add_argument(
-    "user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+    "user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 
 url = 'https://www.google.com/recaptcha/api2/demo'
 driver.get(url)

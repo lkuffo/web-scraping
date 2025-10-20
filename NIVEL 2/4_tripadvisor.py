@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a reducir el espectro de busqueda para filtrar URLs en las reglas
     - Evitar obtener URLs repetidas
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 17 ABRIL 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -27,7 +27,7 @@ class Opinion(Item):
 class TripAdvisor(CrawlSpider):
     name = 'hotelestripadvisor'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36',
         'CLOSESPIDER_PAGECOUNT': 100
     }
 

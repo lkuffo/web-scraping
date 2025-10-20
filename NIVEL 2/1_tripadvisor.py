@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones verticales utilizando reglas
     - Aprender a utilizar MapCompose para realizar limpieza de datos
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 17 ABRIL 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -25,14 +25,15 @@ class Hotel(Item):
 class TripAdvisor(CrawlSpider):
     name = 'hotelestripadvisor'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36'
     }
 
     # Reduce el espectro de busqueda de URLs. No nos podemos salir de los dominios de esta lista
-    allowed_domains = ['tripadvisor.com']
+    # allowed_domains = ['tripadvisor.com']
 
     # Url semilla a la cual se hara el primer requerimiento
-    start_urls = ['https://www.tripadvisor.com/Hotels-g303845-Guayaquil_Guayas_Province-Hotels.html']
+    # 2025: Ahora utilizaremos una version antigua de la pagina. Debido a que es otro dominio, tenemos que comentar la variable allowed_domains
+    start_urls = ['https://web.archive.org/web/20230529051711/https://www.tripadvisor.com/Hotels-g303845-Guayaquil_Guayas_Province-Hotels.html']
 
     # Tiempo de espera entre cada requerimiento. Nos ayuda a proteger nuestra IP.
     download_delay = 2
@@ -59,7 +60,7 @@ class TripAdvisor(CrawlSpider):
                         MapCompose(self.quitarDolar)) # Debido a que ahora estamos obteniendo el score, no es necesario este post-procesamiento
         # Es posible utilizar Map Compose con funciones anonimas
         # PARA INVESTIGAR: Que son las funciones anonimas (lambda) en Python?
-        item.add_xpath('descripcion', '//div[@id="ABOUT_TAB"]//div[@class="fIrGe _T"]//text()', # //text() nos permite obtener el texto de todos los hijos
+        item.add_xpath('descripcion', '//div[@class="_T FKffI TPznB Ci ajMTa Ps Z BB bmUTE"]/div/text()', # //text() nos permite obtener el texto de todos los hijos
                        MapCompose(lambda i: i.replace('\n', '').replace('\r', '')))
         item.add_xpath('amenities',
                        '//div[contains(@data-test-target, "amenity_text")]/text()')

@@ -8,13 +8,13 @@ OBJETIVO:
     - Aprender a hacer autenticacion por un API no documentado
     - Refrescar conocimientos de lxml
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 20 OCTUBRE 2025
 """
 import requests
 from lxml import html
 
 headers = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
 }
 
 # Abrimos una nueva sesion dentro de scrapy

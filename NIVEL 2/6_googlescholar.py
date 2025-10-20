@@ -4,7 +4,7 @@ OBJETIVO:
     - Llenar el item con .add_value
     - Aprender el uso de .get() y .getall() para obtener información de la página
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 13 ENERO 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -23,7 +23,7 @@ class Articulo(Item):
 class GoogleScholar(CrawlSpider):
     name = 'googlescholar'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36',
         'DEPTH_LIMIT': 1, # Para definir que solo se vaya a un nivel de profundidad
         'FEED_EXPORT_ENCODING': 'utf-8' # Para evitar problemas con codificacion de simbolos
     }

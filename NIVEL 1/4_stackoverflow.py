@@ -2,7 +2,7 @@
 OBJETIVO: 
     - Extraer las preguntas de la pagina principal de Stackoverflow con Scrapy
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 ENERO 2023
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 
 # VER RECURSOS DE LA CLASE PARA INSTALAR SCRAPY
@@ -29,7 +29,8 @@ class StackOverflowSpider(Spider):
     }    
 
     # URL SEMILLA
-    start_urls = ['https://stackoverflow.com/questions']
+    # Actualizacion 2025: Ahora utilizaremos una version antigua de la pagina. 
+    start_urls = ['https://web.archive.org/web/20220801005050/https://stackoverflow.com/questions']
 
 
     # Funcion que se va a llamar cuando se haga el requerimiento a la URL semilla

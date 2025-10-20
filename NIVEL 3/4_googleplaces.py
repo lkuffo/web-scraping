@@ -5,7 +5,7 @@ OBJETIVO:
     - Aprender a cargar informacion haciendo scrolling.
     - Aprender a manejar varios tabs abiertos al mismo tiempo en Selenium.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 10 SEPTIEMBRE 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 import random
 from time import sleep
@@ -15,11 +15,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager # pip install webdriver-manager
 
 # User agent
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
 
@@ -35,7 +34,7 @@ def getScrollingScript(iteration):
     return scrollingScript.replace('20000', str(20000 * (iteration + 1)))
 
 # Selenium 4.10
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 driver.get('https://www.google.com/maps/place/Restaurante+Amazonico/@40.423706,-3.6872655,17z/data=!4m7!3m6!1s0xd422899dc90366b:0xce28a1dc0f39911d!8m2!3d40.423706!4d-3.6850768!9m1!1b1')
 
 # A veces google places necesita una espera adicional para encontrarse verdaderamente cargado

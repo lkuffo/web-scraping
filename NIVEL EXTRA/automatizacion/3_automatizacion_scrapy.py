@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar LoopingCalls en Scrapy.
     - Utilizar Scrapy de una manera simplificada.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 20 OCTUBRE 2025
 """
 
 from twisted.internet import reactor # viene instalado con scrapy
@@ -17,7 +17,7 @@ from scrapy.spiders import Spider
 class ExtractorClima(Spider):
     name = "MiCrawlerDeClima"
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36',
         'CLOSESPIDER_PAGECOUNT': 20,
         'LOG_ENABLED': True # False elimina los miles de logs que salen al ejecutar Scrapy en terminal
     }
@@ -56,7 +56,7 @@ class ExtractorClima(Spider):
 # Logica para correr una extraccion de Scrapy periodicamente. Es decir, automatizarla.
 runner = CrawlerRunner()
 task = LoopingCall(lambda: runner.crawl(ExtractorClima)) # Para Investigar: Funciones Anonimas en Python
-task.start(20) # Tiempo en segundos desde la primera corrida del programa para repetir la extraccion
+task.start(5, now=True) # Tiempo en segundos desde la primera corrida del programa para repetir la extraccion
 reactor.run()
 
 # Segundos en 1 dia: 86400

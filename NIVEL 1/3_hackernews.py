@@ -3,7 +3,7 @@ OBJETIVO:
     - Solidificar los conocimientos de BeautifulSoup
     - Aprender otras técnicas para navegar por el árbol y obtener elementos en BeautifulSoup
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 ENERO 2023
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 
 import requests

@@ -1,8 +1,8 @@
 """
 OBJETIVO: 
     - Actualización de Twitter 2023
-CREADO POR: TOMAS ALLAMI (https://github.com/Tallami) y  LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 15 ENERO 2024
+CREADO POR: TOMAS ALLAMI (https://github.com/Tallami) y LEONARDO KUFFO
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 
 from selenium import webdriver
@@ -11,14 +11,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager # pip install webdriver-manager
 
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
 
-driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 driver.get('https://twitter.com/login')
 
 user = "leonardokuffo"
@@ -31,7 +30,7 @@ input_user = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.
 input_user.send_keys(user)
 
 # Obtengo el boton next y lo presiono para poder poner la pass
-next_button = driver.find_element(By.XPATH, '(//div[@class="css-175oi2r r-sdzlij r-1phboty r-rs99b7 r-lrvibr r-ywje51 r-usiww2 r-13qz1uu r-2yi16 r-1qi8awa r-ymttw5 r-1loqt21 r-o7ynqc r-6416eg r-1ny4l3l"])[1]')
+next_button = driver.find_element(By.XPATH, '(//div[@class="css-146c3p1 r-bcqeeo r-qvutc0 r-37j5jr r-q4m81j r-a023e6 r-rjixqe r-b88u0q r-1awozwy r-6koalj r-18u37iz r-16y2uox r-1777fci"])[2]')
 next_button.click()
 
 # Obtengo los inputs de usuario (linea 28) y password

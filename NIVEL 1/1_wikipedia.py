@@ -4,7 +4,7 @@ OBJETIVOS:
     - Aprender a utilizar requests para hacer requerimientos
     - Aprender a utilizar lxml para parsear el arbol HTML
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 ENERO 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 import requests # pip install requests
 from lxml import html # pip install lxml

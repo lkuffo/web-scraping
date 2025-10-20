@@ -2,7 +2,7 @@
 OBJETIVO: 
     - Extraer archivos utilizando Web Scraping
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 14 AGOSTO 2024
+ULTIMA VEZ EDITADO: 20 OCTUBRE 2025
 """
 import requests
 from bs4 import BeautifulSoup

@@ -3,7 +3,7 @@ OBJETIVO:
     - Extraer informacion sobre los productos en la pagina de Mercado Libre Mascotas
     - Aprender a realizar extracciones verticales y horizontales utilizando reglas
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 28 FEBRERO 2023
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 from scrapy.item import Field
 from scrapy.item import Item
@@ -23,14 +23,14 @@ class MercadoLibreCrawler(CrawlSpider):
     name = 'mercadoLibre'
 
     custom_settings = {
-      'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+      'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36',
       'CLOSESPIDER_PAGECOUNT': 20 # Numero maximo de paginas en las cuales voy a descargar items. Scrapy se cierra cuando alcanza este numero
     }
 
     # Utilizamos 2 dominios permitidos, ya que los articulos utilizan un dominio diferente
     allowed_domains = ['articulo.mercadolibre.com.ec', 'listado.mercadolibre.com.ec']
 
-    start_urls = ['https://listado.mercadolibre.com.ec/animales-mascotas/perros/']
+    start_urls = ['https://listado.mercadolibre.com.ec/mascotas']
 
     download_delay = 3
 

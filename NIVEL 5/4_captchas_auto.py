@@ -12,13 +12,11 @@ import requests
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 opts = Options()
-opts.add_argument(
-    "user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 
 url = 'https://www.google.com/recaptcha/api2/demo'
 driver.get(url)
@@ -30,7 +28,7 @@ try:
 
     # Armo el requerimiento a 2captcha
     url = "https://2captcha.com/in.php?"
-    url += "key=" + "API_KEY_AQUI"  # API KEY 2CAPTCHA
+    url += "key=" + "0098f81896e358423d5feea99ac741c6"  # API KEY 2CAPTCHA
     url += "&method=userrecaptcha"
     url += "&googlekey=" + captcha_key
     url += "&pageurl=" + url
@@ -49,7 +47,7 @@ try:
 
     # Armo el requerimiento para consultar si el captcha ya se encuentra resuelto
     url_resp = "https://2captcha.com/res.php?"
-    url_resp += "key=" + "2CAPTCHA_API_KEY_VER_DESCRIPCION_CLASE"  # API KEY
+    url_resp += "key=" + "0098f81896e358423d5feea99ac741c6"  # API KEY
     url_resp += "&action=get"
     url_resp += "&id=" + captcha_service_key  # ID del captcha en el sistema de 2CAPTCHA obtenido previamente
     url_resp += "&json=0"

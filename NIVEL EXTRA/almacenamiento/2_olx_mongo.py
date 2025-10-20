@@ -2,7 +2,7 @@
 OBJETIVO:  
     - Almacenar datos de OLX en MongoDB
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 20 OCTUBRE 2025
 """
 from time import sleep
 from selenium import webdriver
@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 
 from pymongo import MongoClient # pip install pymongo
 
@@ -18,9 +18,14 @@ client = MongoClient('localhost')
 db = client['olx']
 col = db['anuncios_selenium']
 
+opts = Options()
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
+# Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
+opts.add_argument("--disable-search-engine-choice-screen")
+
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
+driver = webdriver.Chrome(options=opts)
 
 # Voy a la pagina que requiero
 driver.get('https://www.olx.in')
@@ -53,7 +58,7 @@ driver.execute_script("window.scrollTo({top: 20000, behavior: 'smooth'});")
 sleep(5)
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-autos = driver.find_elements('xpath', '//li[@data-aut-id="itemBox"]')
+autos = driver.find_elements('xpath', '//li[@data-aut-id="itemBox3"]')
 
 # Recorro cada uno de los anuncios que he encontrado
 for auto in autos:

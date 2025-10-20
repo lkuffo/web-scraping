@@ -1,4 +1,9 @@
 """
+===========================================
+============= DESACTUALIZADO ==============
+= LA EXTRACCION HA CAMBIADO POR COMPLETO ==
+===========================================
+===========================================
 OBJETIVO: 
     - Extraer nombre, reviews y rating de los cursos de Python.
     - Aprender a extraer datos de APIs.
@@ -18,7 +23,7 @@ import pandas as pd
 headers = {
     # El encabezado de referer es importante. Sin esto, este API en especifico me respondera 403
     "Referer": "https://www.udemy.com/courses/search/?p=2&q=python&src=ukw",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
 }
 
 # Utilizamos cloudscraper debido al mecanismo anti detección de bots de Udemy

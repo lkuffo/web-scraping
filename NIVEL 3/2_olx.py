@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a utilizar la espera por eventos de Selenium.
     - Aprender a optimizar el tiempo de ejecucion de nuestras extracciones por Selenium de manera inteligente
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 03 OCTUBRE 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 import random
 from selenium import webdriver
@@ -12,21 +12,17 @@ from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
-# Instancio el driver de selenium que va a controlar el navegador
-# A partir de este objeto voy a realizar el web scraping e interacciones
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
 
 # Instancio el driver de selenium que va a controlar el navegador
 # A partir de este objeto voy a realizar el web scraping e interacciones
-driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 
 # Voy a la pagina que requiero
 driver.get('https://www.olx.in/')
@@ -44,7 +40,7 @@ for i in range(1): # Voy a darle click en cargar mas 2 veces
     try:
         # Esperamos a que el boton se encuentre disponible a traves de una espera por eventos
         # Espero un maximo de 10 segundos, hasta que se encuentre el boton dentro del DOM
-        boton = WebDriverWait(driver, 10).until(
+        boton = WebDriverWait(driver, 15).until(
           EC.presence_of_element_located((By.XPATH, '//button[@data-aut-id="btnLoadMore"]'))
         )
         # le doy click al boton que espere

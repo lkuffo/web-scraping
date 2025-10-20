@@ -10,7 +10,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager  # pip install webdriver-manager
 
 
 # Funcion para hacer un Scrolling SUAVIZADO dependiendo de cuantos scrollings ya he hecho
@@ -27,13 +26,12 @@ def hacer_scrolling_suavizado(driver, iteracion):
 
 
 opts = Options()
-opts.add_argument(
-    "user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
+#opts.add_argument("--headless") # Headless Mode
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
-# opts.add_argument("--headless") # Headless Mode
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 
 # Vamos a la página de la cual queremos obtener los comentarios
 driver.get('https://www.facebook.com/elcorteingles')

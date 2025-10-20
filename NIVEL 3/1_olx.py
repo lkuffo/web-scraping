@@ -4,7 +4,7 @@ OBJETIVO:
     - Aprender a realizar extracciones que requieran una accion de click para cargar datos.
     - Introducirnos a la logica de Selenium
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 03 OCTUBRE 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 
 #####
@@ -17,11 +17,10 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver # pip install selenium
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 
 # Asi podemos setear el user-agent en selenium
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
 
@@ -30,7 +29,7 @@ opts.add_argument("--disable-search-engine-choice-screen")
 driver = webdriver.Chrome(options=opts)
 
 # Voy a la pagina que quiero
-driver.get('https://www.olx.in/cars_c84')
+driver.get('https://www.olx.in')
 sleep(4)
 
 # Cerramos dialogo de disclaimer (2024)
@@ -49,7 +48,7 @@ for i in range(1): # Voy a darle click en cargar mas 3 veces
         # le doy click
         boton.click()
         # espero que cargue la informacion dinamica
-        sleep(random.uniform(10.0, 15.0))
+        sleep(random.uniform(14.0, 15.0))
         # busco el boton nuevamente para darle click en la siguiente iteracion
         boton = driver.find_element(By.XPATH, '//button[@data-aut-id="btnLoadMore"]')
     except Exception as e:
@@ -59,7 +58,7 @@ for i in range(1): # Voy a darle click en cargar mas 3 veces
 
 # Encuentro cual es el XPATH de cada elemento donde esta la informacion que quiero extraer
 # Esto es una LISTA. Por eso el metodo esta en plural
-autos = driver.find_elements(By.XPATH, '//li[@data-aut-id="itemBox2"]')
+autos = driver.find_elements(By.XPATH, '//li[@data-aut-id="itemBox3"]')
 
 # Recorro cada uno de los anuncios que he encontrado
 for auto in autos:

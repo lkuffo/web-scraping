@@ -2,15 +2,16 @@
 OBJETIVO: 
     - Aprender a utilizar el metodo para parsear las URL semilla en ves de aplicar reglas directamente
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 from scrapy.item import Field
 from scrapy.item import Item
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
-from scrapy.loader.processors import MapCompose
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
+
+from itemloaders.processors import MapCompose  # 2024: Nueva forma de importar MapCompose
 
 
 class Hotel(Item):
@@ -23,14 +24,14 @@ class Hotel(Item):
 class TripAdvisor(CrawlSpider):
     name = 'hotelestripadvisor'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36'
     }
 
     # Reduce el espectro de busqueda de URLs. No nos podemos salir de los dominios de esta lista
-    allowed_domains = ['tripadvisor.com']
+    # allowed_domains = ['tripadvisor.com']
 
     # Url semilla a la cual se hara el primer requerimiento
-    start_urls = ['https://www.tripadvisor.com/Hotels-g303845-Guayaquil_Guayas_Province-Hotels.html']
+    start_urls = ['https://web.archive.org/web/20230529051711/https://www.tripadvisor.com/Hotels-g303845-Guayaquil_Guayas_Province-Hotels.html']
 
     # Tiempo de espera entre cada requerimiento. Nos ayuda a proteger nuestra IP.
     download_delay = 2
@@ -50,7 +51,7 @@ class TripAdvisor(CrawlSpider):
     # EL RESPONSE ES EL DE LA URL SEMILLA
     def parse_start_url(self, response): 
         sel = Selector(response)
-        hoteles = sel.xpath('//div[contains(@id, "hotel-listing")]')
+        hoteles = sel.xpath('//div[contains(@class, "listing collapsed")]')
         print("Numero de Resultados: ", len(hoteles))
 
     # Callback de la regla

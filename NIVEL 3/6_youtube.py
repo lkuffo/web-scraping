@@ -3,14 +3,13 @@ OBJETIVO:
     - Hacer una extracción compleja en Selenium
     - Hacer una extracción de datos de una red social
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 03 OCTUBRE 2024
+ULTIMA VEZ EDITADO: 19 OCTUBRE 2025
 """
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager # pip install webdriver-manager
 
 # Funcion para obtener el Script de Scrolling dependiendo de cuantos scrollings ya he hecho
 # Es un approach mas inteligente que el utilizado en el video. En donde, mientras mas escrolls llevo dando, mas pixeles voy bajando.
@@ -23,13 +22,12 @@ def obtener_script_scrolling(iteration):
 
 
 opts = Options()
-opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
 # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
 opts.add_argument("--disable-search-engine-choice-screen")
 #opts.add_argument("--headless") # Headless Mode
 
-#driver = webdriver.Chrome(options=opts)
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
+driver = webdriver.Chrome(options=opts)
 
 driver.get('https://www.youtube.com/playlist?list=PLuaGRMrO-j-8NndtkHMA7Y_7798tdJWKH')
 sleep(2)

@@ -3,13 +3,13 @@ OBJETIVO:
     - Aprender a automatizar la ejecucion de extracciones en Selenium y requests.
     - Aprender a utilizar la libreria Schedule para agendar/automatizar procesos por intervalos.
 CREADO POR: LEONARDO KUFFO
-ULTIMA VEZ EDITADO: 16 ENERO 2024
+ULTIMA VEZ EDITADO: 20 OCTUBRE 2025
 """
 import schedule # pip install schedule
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 
 start_urls = [
     "https://www.accuweather.com/es/ec/guayaquil/127947/weather-forecast/127947",
@@ -18,7 +18,14 @@ start_urls = [
 ]
 
 def extraer_datos():
-    driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
+    opts = Options()
+    opts.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36")
+    # Agregar a todos sus scripts de selenium para que no aparezca la ventana de seleccionar navegador por defecto: (desde agosto 2024)
+    opts.add_argument("--disable-search-engine-choice-screen")
+
+    # Instancio el driver de selenium que va a controlar el navegador
+    # A partir de este objeto voy a realizar el web scraping e interacciones
+    driver = webdriver.Chrome(options=opts)
 
     # Por cada una de las URLs que quiero extraer...
     for url in start_urls:
